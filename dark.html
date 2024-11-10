@@ -8,11 +8,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-
-
-
-
-  
   <div id="map"></div>
 <style>
   /* General modal styles */
@@ -340,10 +335,12 @@ window.onload = function() {
       minZoom: 1                   // Optional: Set minimum zoom level
     });
 
- // Use CartoDB Positron tiles for a light base map
- L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://carto.com">CARTO</a>',
-      maxZoom: 20
+    // Add a tile layer (e.g., OpenStreetMap tiles)
+   
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
     }).addTo(map);
 
     // Toggle the display of the widget container
