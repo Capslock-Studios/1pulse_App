@@ -85,9 +85,82 @@
     // Leaflet map initialization
     const map = L.map('map').fitWorld();
 
+
     map.locate({ setView: true, maxZoom: 16 });
 
-    function onLocationFound(e) {
+      // Handle location found
+      function onLocationFound(e) {
+      L.marker(e.latlng).addTo(map)
+        .bindPopup("You are here: " + e.latlng.toString())
+        .openPopup();
+    }
+
+    // Handle location error
+    function onLocationError(e) {
+      alert(e.message);
+    }
+
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Handle map click to open the incident form
+    map.on('click', function(e) {
+      const formPopupContent = `
+        <form id="incidentForm" onsubmit="submitIncidentForm(event, '${e.latlng.lat}', '${e.latlng.lng}')">
+          <label for="address">Address/Location:</label>
+          <input type="text" id="address" name="address" placeholder="Enter address" required>
+          <label for="incidentType">Incident Type:</label>
+          <select id="incidentType" name="incidentType" required>
+            <option value="crime">Crime</option>
+            <option value="accident">Accident</option>
+            <option value="hazard">Hazard</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="notes">Additional Notes:</label>
+          <textarea id="notes" name="notes" placeholder="Describe the incident..."></textarea>
+          <button type="submit">Report Incident</button>
+        </form>
+      `;
+
+      L.popup()
+        .setLatLng(e.latlng)
+        .setContent(formPopupContent)
+        .openOn(map);
+    });
+
+    // Function to handle form submission
+    function submitIncidentForm(event, lat, lng) {
+      event.preventDefault();
+
+      const address = document.getElementById('address').value;
+      const incidentType = document.getElementById('incidentType').value;
+      const notes = document.getElementById('notes').value;
+
+      // Process and store the alert/incident data here (e.g., send it to a database)
+      console.log("Incident reported at:", lat, lng);
+      console.log("Address:", address);
+      console.log("Type:", incidentType);
+      console.log("Notes:", notes);
+
+      // Close the popup
+      map.closePopup();
+
+      // Add a marker to the map to represent the incident
+      L.marker([lat, lng]).addTo(map)
+        .bindPopup(`
+          <strong>Incident Reported</strong><br>
+          <strong>Location:</strong> ${address}<br>
+          <strong>Type:</strong> ${incidentType}<br>
+          <strong>Notes:</strong> ${notes}
+        `).openPopup();
+    }
+
+      function onLocationFound(e) {
       L.marker(e.latlng).addTo(map)
         .bindPopup("You are here: " + e.latlng.toString())
         .openPopup();
@@ -153,3 +226,8 @@
   </script>
 </body>
 </html>
+
+
+
+
+
