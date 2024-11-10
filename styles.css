@@ -108,15 +108,17 @@
         position: absolute;
         bottom: 10%;
         width: 100%;
+        height: auto;
         display: flex;
         justify-content: space-around;
         z-index: 2;
-        background-color: bisque;
+        border-radius: 12px;
+        background-color: rgb(255, 253, 251);
       }
       
       .widget {
         width: 100px;
-        height: 100px;
+        height: 200px;
         background-color: #fff;
         border: 2px solid #ffd700;
         display: flex;
@@ -124,7 +126,10 @@
         justify-content: center;
         cursor: pointer;
       }
-      
+       .column {
+        background-color: #e7f3d4;
+        border-radius: 14px;
+       }
       /* Reorder widget items on desktop and mobile */
       #widget-container {
         display: flex;
