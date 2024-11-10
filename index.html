@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+<style>
+    /* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e7f3d4; /* Light green */
+  color: #333;
+}
+
+/* Map styling */
+#map {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Logo Navigation styling */
+#logo-nav {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+#logo-container {
+  display: flex;
+  overflow-x: hidden;
+  width: 200px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid #ffd700; /* Yellow border */
+}
+
+.nav-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Modal Button */
+#modal-button {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 10px 20px;
+  background-color: #4caf50; /* Green */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Widgets */
+#widget-container {
+  display: none;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 2;
+}
+
+.widget {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border: 2px solid #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Reorder widget items on desktop and mobile */
+#widget-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.widget:nth-child(1) {
+  order: 2; /* Move Item 1 to second position */
+}
+
+.widget:nth-child(2) {
+  order: 1; /* Move Item 2 to first position */
+}
+
+.widget:nth-child(3) {
+  order: 4; /* Move Item 3 to fourth position */
+}
+
+.widget:nth-child(4) {
+  order: 3; /* Move Item 4 to third position */
+}
+
+/* Responsive - Mobile styling */
+@media (max-width: 600px) {
+  #widget-container {
+    flex-direction: column;
+    align-items: center;
+    bottom: 5%;
+  }
+
+  .widget {
+    width: 80%;
+    margin: 10px 0;
+  }
+}
+
+</style>
+  <div id="map"></div>
+
+  <!-- Logo Navigation -->
+  <div id="logo-nav">
+    <button class="nav-btn" onclick="slideLeft()">&#9664;</button>
+    <div id="logo-container">
+      <div class="logo" onclick="goToPage(1)">Logo 1</div>
+      <div class="logo" onclick="goToPage(2)">Logo 2</div>
+      <div class="logo" onclick="goToPage(3)">Logo 3</div>
+      <div class="logo" onclick="goToPage(4)">Logo 4</div>
+      <div class="logo" onclick="goToPage(5)">Logo 5</div>
+    </div>
+    <button class="nav-btn" onclick="slideRight()">&#9654;</button>
+  </div>
+
+  <!-- Modal Button -->
+  <button id="modal-button" onclick="toggleWidgets()">Toggle Widgets</button>
+
+  <!-- Widgets -->
+  <div id="widget-container">
+     <!-- Left Column -->
+  <div class="column">
+    <div class="box">
+      <h3>Heading 1</h3>
+      <select>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+    <div class="box">
+      <h3>Heading 2</h3>
+      <select>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="column">
+    <div class="box">
+      <h3>Heading 1</h3>
+      <select>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+    <div class="box">
+      <h3>Heading 2</h3>
+      <select>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  </div>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script >
+    // Leaflet map initialization
+const map = L.map('map').fitWorld();
+
+// Request user location and display it
+map.locate({ setView: true, maxZoom: 16 });
+
+function onLocationFound(e) {
+  L.marker(e.latlng).addTo(map)
+    .bindPopup("You are here: " + e.latlng.toString())
+    .openPopup();
+}
+
+function onLocationError(e) {
+  alert(e.message);
+}
+
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
+
+// Add map layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Toggle widgets display
+function toggleWidgets() {
+  const widgetContainer = document.getElementById('widget-container');
+  widgetContainer.style.display = widgetContainer.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Slide logo navigation
+function slideLeft() {
+  const container = document.getElementById('logo-container');
+  container.scrollBy({ left: -50, behavior: 'smooth' });
+}
+
+function slideRight() {
+  const container = document.getElementById('logo-container');
+  container.scrollBy({ left: 50, behavior: 'smooth' });
+}
+
+// Placeholder function for navigating to pages
+function goToPage(pageNumber) {
+  alert("Navigating to page " + pageNumber);
+}
+
+  </script>
+
+</body>
+</html>
+
+
+  <style>
+    /* General styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e7f3d4; /* Light green */
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      height: 100vh;
+    }
+
+    /* Left and Right Column Styling */
+    .column {
+      width: 45%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Box styling */
+    .box {
+      background-color: #fff;
+      padding: 15px;
+      border: 2px solid #ffd700; /* Yellow border */
+      border-radius: 5px;
+    }
+
+    .box h3 {
+      margin-top: 0;
+    }
+
+    /* Dropdown styling */
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+  </style>
