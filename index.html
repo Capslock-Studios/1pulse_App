@@ -103,7 +103,8 @@
     function closeForm() {
       document.getElementById('incident-form').style.display = 'none';
     }
-  
+
+
     // Handle map click to show form and autofill address
     map.on('click', async (e) => {
       const { lat, lng } = e.latlng;
@@ -111,9 +112,12 @@
       // Call reverse geocode function
       const address = await reverseGeocode(lat, lng);
   
-      // Place a marker and open form with address filled
-      L.marker([lat, lng]).addTo(map).bindPopup("Location selected").openPopup();
-      openForm(lat, lng, address || "Address not found");
+     // Place a marker with the address in the popup, if available
+  const markerPopupContent = address ? `Location selected: ${address}` : "Location selected: Address not found";
+  L.marker([lat, lng]).addTo(map).bindPopup(markerPopupContent).openPopup();
+
+  // Open the form with the address filled
+  openForm(lat, lng, address || "Address not found");
     });
   
     // Reverse Geocoding using OpenStreetMap's Nominatim API
