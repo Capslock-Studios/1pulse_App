@@ -328,11 +328,16 @@ window.onload = function() {
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialize the map
-    const map = L.map('map').setView([-26.2041, 28.0473], 13); // Johannesburg coordinates as default
+    const map = L.map('map', {
+      center: [-26.2041, 28.0473], // Coordinates for Johannesburg as an example
+      zoom: 18,                    // Initial zoom level for close-up view
+      maxZoom: 18,                 // Set max zoom to the closest level
+      minZoom: 1                   // Optional: Set minimum zoom level
+    });
 
+    // Add a tile layer (e.g., OpenStreetMap tiles)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: '© OpenStreetMap contributors'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     // Toggle the display of the widget container
