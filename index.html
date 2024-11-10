@@ -8,147 +8,85 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
+  <div id="map"></div>
 <style>
-    /* General styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #e7f3d4; /* Light green */
-  color: #333;
-}
-
-/* Map styling */
-#map {
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-}
-
-/* Logo Navigation styling */
+  /* Logo Navigation styling */
 #logo-nav {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
 }
 
 #logo-container {
-  display: flex;
-  overflow-x: hidden;
-  width: 200px;
+    display: flex;
+    overflow-x: auto; /* Make container scrollable */
+    width: 200px;
+    border: solid 1px grey;
+    border-radius: 22px;
+    cursor: grab; /* Indicate the ability to drag */
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border-radius: 50%;
-  margin: 0 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 2px solid #ffd700; /* Yellow border */
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid #ffd700; /* Yellow border */
+}
+
+.logo img {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Add a draggable cursor */
+#logo-container.dragging {
+    cursor: grabbing;
 }
 
 .nav-btn {
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* Modal Button */
-#modal-button {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  padding: 10px 20px;
-  background-color: #4caf50; /* Green */
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-/* Widgets */
-#widget-container {
-  display: none;
-  position: absolute;
-  bottom: 10%;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  z-index: 2;
-}
-
-.widget {
-  width: 100px;
-  height: 100px;
-  background-color: #fff;
-  border: 2px solid #ffd700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* Reorder widget items on desktop and mobile */
-#widget-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.widget:nth-child(1) {
-  order: 2; /* Move Item 1 to second position */
-}
-
-.widget:nth-child(2) {
-  order: 1; /* Move Item 2 to first position */
-}
-
-.widget:nth-child(3) {
-  order: 4; /* Move Item 3 to fourth position */
-}
-
-.widget:nth-child(4) {
-  order: 3; /* Move Item 4 to third position */
-}
-
-/* Responsive - Mobile styling */
-@media (max-width: 600px) {
-  #widget-container {
-    flex-direction: column;
-    align-items: center;
-    bottom: 5%;
-  }
-
-  .widget {
-    width: 80%;
-    margin: 10px 0;
-  }
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 </style>
-  <div id="map"></div>
-
   <!-- Logo Navigation -->
-  <div id="logo-nav">
-    <button class="nav-btn" onclick="slideLeft()">&#9664;</button>
-    <div id="logo-container">
-      <div class="logo" onclick="goToPage(1)">Logo 1</div>
-      <div class="logo" onclick="goToPage(2)">Logo 2</div>
-      <div class="logo" onclick="goToPage(3)">Logo 3</div>
-      <div class="logo" onclick="goToPage(4)">Logo 4</div>
-      <div class="logo" onclick="goToPage(5)">Logo 5</div>
+  <!-- Logo Navigation -->
+<div id="logo-nav">
+  <button class="nav-btn" onclick="slideLeft()">&#9664;</button>
+  <div id="logo-container" onmousedown="startDrag(event)" onmousemove="dragMove(event)" onmouseup="stopDrag()" onmouseleave="stopDrag()">
+    <div class="logo" onclick="goToPage(1)">
+      <img src="images/SAPS_badge.svg.png" alt="Logo 1">
     </div>
-    <button class="nav-btn" onclick="slideRight()">&#9654;</button>
+    <div class="logo" onclick="goToPage(2)">
+      <img src="images/bonizluu-fav.png" alt="Logo 2">
+    </div>
+    <div class="logo" onclick="goToPage(3)">
+      <img src="images/hillbrow.jpeg" alt="Logo 3">
+    </div>
+    <div class="logo" onclick="goToPage(4)">
+      <img src="images/pulse.jpeg" alt="Logo 4">
+    </div>
+    <div class="logo" onclick="goToPage(5)">
+      <img src="images/cpf.png" alt="Logo 5">
+    </div>
   </div>
+  <button class="nav-btn" onclick="slideRight()">&#9654;</button>
+</div>
+
 
   <!-- Modal Button -->
   <button id="modal-button" onclick="toggleWidgets()">Toggle Widgets</button>
@@ -244,6 +182,47 @@ function slideRight() {
 // Placeholder function for navigating to pages
 function goToPage(pageNumber) {
   alert("Navigating to page " + pageNumber);
+}
+
+
+
+let isDragging = false;
+let startX;
+let scrollLeft;
+
+function startDrag(e) {
+    isDragging = true;
+    startX = e.pageX - document.getElementById('logo-container').offsetLeft;
+    scrollLeft = document.getElementById('logo-container').scrollLeft;
+    document.getElementById('logo-container').classList.add('dragging');
+}
+
+function dragMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - document.getElementById('logo-container').offsetLeft;
+    const walk = (x - startX) * 2; // scroll speed
+    document.getElementById('logo-container').scrollLeft = scrollLeft - walk;
+}
+
+function stopDrag() {
+    isDragging = false;
+    document.getElementById('logo-container').classList.remove('dragging');
+}
+
+// Add your slide left and right functionality
+function slideLeft() {
+    const container = document.getElementById('logo-container');
+    container.scrollLeft -= 100; // Adjust the scroll amount as needed
+}
+
+function slideRight() {
+    const container = document.getElementById('logo-container');
+    container.scrollLeft += 100; // Adjust the scroll amount as needed
+}
+
+function goToPage(pageNumber) {
+    console.log("Go to page", pageNumber);
 }
 
   </script>

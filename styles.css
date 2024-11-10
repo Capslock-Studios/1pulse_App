@@ -1,0 +1,129 @@
+
+    /* General styles */
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #e7f3d4; /* Light green */
+        color: #333;
+      }
+      
+      /* Map styling */
+      #map {
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+      }
+      
+      /* Logo Navigation styling */
+      #logo-nav {
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+      }
+      
+      #logo-container {
+        display: flex;
+        overflow-x: hidden;
+        width: 200px;
+        border: solid 1px grey;
+        border-radius: 22px;
+      }
+      
+      .logo {
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        border-radius: 50%;
+        margin: 0 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: 2px solid #ffd700; /* Yellow border */
+      }
+      
+      .nav-btn {
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      
+      /* Modal Button */
+      #modal-button {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        padding: 10px 20px;
+        background-color: #4caf50; /* Green */
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      
+      /* Widgets */
+      #widget-container {
+        display: none;
+        position: absolute;
+        bottom: 10%;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        z-index: 2;
+      }
+      
+      .widget {
+        width: 100px;
+        height: 100px;
+        background-color: #fff;
+        border: 2px solid #ffd700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      
+      /* Reorder widget items on desktop and mobile */
+      #widget-container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      
+      .widget:nth-child(1) {
+        order: 2; /* Move Item 1 to second position */
+      }
+      
+      .widget:nth-child(2) {
+        order: 1; /* Move Item 2 to first position */
+      }
+      
+      .widget:nth-child(3) {
+        order: 4; /* Move Item 3 to fourth position */
+      }
+      
+      .widget:nth-child(4) {
+        order: 3; /* Move Item 4 to third position */
+      }
+      
+      /* Responsive - Mobile styling */
+      @media (max-width: 600px) {
+        #widget-container {
+          flex-direction: column;
+          align-items: center;
+          bottom: 5%;
+        }
+      
+        .widget {
+          width: 80%;
+          margin: 10px 0;
+        }
+      }
+      
+      
