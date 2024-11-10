@@ -31,6 +31,7 @@
     height: 50px; /* Adjust as needed */
     border-radius: 50%;
     object-fit: cover;
+    padding: 1px;
 }
 
 /* Add a draggable cursor */
@@ -59,9 +60,11 @@
       #logo-container {
         display: flex;
         overflow-x: hidden;
-        width: 200px;
+        width: 300px;
+        height: 70px;
         border: solid 1px grey;
-        border-radius: 22px;
+        height: 50px;
+        border-radius: 50px;
       }
       
       .logo {
@@ -69,11 +72,12 @@
         height: 40px;
         background-color: #fff;
         border-radius: 50%;
-        margin: 0 5px;
+        margin: 1px 4px 5px;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        padding: 2px;
         border: 2px solid #ffd700; /* Yellow border */
       }
       
