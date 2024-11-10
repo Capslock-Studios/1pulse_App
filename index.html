@@ -9,32 +9,143 @@
 </head>
 <body>
   <div id="map"></div>
+<style>
+  /* General modal styles */
+.modal {
+  display: none; /* Hide modal by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 10002;
+}
 
-  <!-- Logo Navigation -->
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 60%;
+  max-width: 600px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: black;
+}
+
+/* Style the logo items */
+#logo-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+</style>
+  <script>
+    // Function to show the modal with specific content
+function showModal(logoId) {
+  const modal = document.getElementById('modal');
+  const title = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+  
+  // Information based on the logo clicked
+  switch(logoId) {
+    case 1:
+      title.textContent = "SAPS - South African Police Service";
+      body.textContent = "SAPS is responsible for maintaining law and order in South Africa, preventing crime, and ensuring the safety of citizens.";
+      break;
+    case 2:
+      title.textContent = "BoniZulu";
+      body.textContent = "BoniZulu is a fashion brand committed to uniting designers for fabric sourcing and promoting the elderly through crocheting programs.";
+      break;
+    case 3:
+      title.textContent = "Hillbrow";
+      body.textContent = "Hillbrow is a diverse and vibrant neighborhood in Johannesburg, known for its rich culture and mix of residential and commercial spaces.";
+      break;
+    case 4:
+      title.textContent = "CPF - Community Policing Forum";
+      body.textContent = "CPF works closely with SAPS to improve safety and security in communities, promoting cooperation between police and residents.";
+      break;
+    case 5:
+      title.textContent = "Pulse";
+      body.textContent = "Pulse is an initiative dedicated to monitoring street activities, overseeing public services, and tracking community-driven efforts for safer environments.";
+      break;
+    default:
+      title.textContent = "";
+      body.textContent = "";
+  }
+
+  // Display the modal
+  modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+  const modal = document.getElementById('modal');
+  modal.style.display = "none";
+}
+
+  </script>
   <div id="logo-nav">
     <button class="nav-btn" onclick="slideLeft()">&#9664;</button>
-    <div id="logo-container" onmousedown="startDrag(event)" onmousemove="dragMove(event)" onmouseup="stopDrag()" onmouseleave="stopDrag()">
-      <div class="logo" onclick="goToPage(1)">
+    <div id="logo-container">
+      <div class="logo" onclick="showModal(1)">
         <img src="images/SAPS_badge.svg.png" alt="Logo 1">
       </div>
-      <div class="logo" onclick="goToPage(2)">
+      <div class="logo" onclick="showModal(2)">
         <img src="images/bonizluu-fav.png" alt="Logo 2">
       </div>
-      <div class="logo" onclick="goToPage(3)">
+      <div class="logo" onclick="showModal(3)">
         <img src="images/hillbrow.jpeg" alt="Logo 3">
       </div>
-      <div class="logo" onclick="goToPage(5)">
-        <img src="images/cpf.png" alt="Logo 5">
+      <div class="logo" onclick="showModal(4)">
+        <img src="images/cpf.png" alt="Logo 4">
       </div>
-      <div class="logo" onclick="goToPage(4)">
-        <img src="images/pulse.jpeg" alt="Logo 4">
-      </div>
-      <div class="logo" onclick="goToPage(5)">
-        <img src="images/cpf.png" alt="Logo 5">
+      <div class="logo" onclick="showModal(5)">
+        <img src="images/pulse.jpeg" alt="Logo 5">
       </div>
     </div>
     <button class="nav-btn" onclick="slideRight()">&#9654;</button>
   </div>
+  
+  <!-- Modal Structure -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-body"></p>
+    </div>
+  </div>
+  
+  <!-- Modal Structure -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-body"></p>
+    </div>
+  </div>
+  
 
   <!-- Modal Button with Image -->
   <button id="modal-button" onclick="toggleWidgets()">
