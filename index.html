@@ -37,7 +37,9 @@
   </div>
 
   <!-- Modal Button -->
-  <button id="modal-button" onclick="toggleWidgets()">1Pulse</button>
+  <button id="modal-button" onclick="toggleWidgets()">
+    <img src="images/ipulse-logo.png" alt="1Pulse" style="width: 50px; height: 50px; vertical-align: middle;">
+    </button>
 
   <!-- Widgets -->
   <div id="widget-container">
@@ -179,7 +181,6 @@
       z-index: 10001;
       width: 50px;
       height: 50px;
-      background-color: #4caf50;
       color: #fff;
       border: none;
       cursor: pointer;
@@ -189,7 +190,7 @@
 
     #modal-button:hover {
       transform: scale(1.1);
-      background-color: #3e8e41;
+      background-color: #585858;
     }
 
     /* Widget Container */
@@ -202,7 +203,7 @@
       padding: 10px;
       background: white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      z-index: 10001;
+      z-index: 1;
     }
 
     /* Column and box styling inside widget */
