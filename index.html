@@ -82,143 +82,108 @@
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Leaflet map initialization
+    // Initialize the map
     const map = L.map('map').setView([-26.2041, 28.0473], 13); // Johannesburg coordinates as default
-    map.locate({ setView: true, maxZoom: 16 });
-  
-    // Map tile layer (remove duplicate)
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
   
-    // Function to open the form
-    function openForm(lat, lng, address) {
-      document.getElementById('incident-form').style.display = 'block';
-      document.getElementById('address').value = address;
-      map.setView([lat, lng], 16);
-    }
-  
-    // Function to close the form
-    function closeForm() {
-      document.getElementById('incident-form').style.display = 'none';
-    }
-
-
-    // Handle map click to show form and autofill address
+    // Handle map click to show styled form in popup with coordinates filled in
     map.on('click', async (e) => {
       const { lat, lng } = e.latlng;
   
-      // Call reverse geocode function
+      // Call reverse geocode to get address
       const address = await reverseGeocode(lat, lng);
   
-     // Place a marker with the address in the popup, if available
-  const markerPopupContent = address ? `Location selected: ${address}` : "Location selected: Address not found";
-  L.marker([lat, lng]).addTo(map).bindPopup(markerPopupContent).openPopup();
-
-  // Open the form with the address filled
-  openForm(lat, lng, address || "Address not found");
+      // Set the popup content with a styled form
+      const popupContent = `
+        <div style="max-width: 300px; margin: auto;">
+          <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
+            <h3 style="color: #333; text-align: center;">Report Incident</h3>
+            
+            <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
+            
+            <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
+            
+            <label for="incidentType" style="font-weight: bold; margin-top: 10px; width: 100%;">Incident Type:</label>
+            <select id="incidentType" name="incidentType" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
+              <option value="" disabled selected>Select incident type</option>
+              <option value="Theft">Theft</option>
+              <option value="Vandalism">Vandalism</option>
+              <option value="Accident">Accident</option>
+              <option value="Other">Other</option>
+            </select>
+            
+            <label for="description" style="font-weight: bold; margin-top: 10px; width: 100%;">Description:</label>
+            <textarea id="description" name="description" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;"></textarea>
+            
+            <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">Address:</label>
+            <input type="text" id="address" name="address" value="${address}" readonly style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px; background-color: #f9f9f9;">
+            
+            <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 4px; cursor: pointer;">
+              Submit Incident
+            </button>
+          </form>
+        </div>
+      `;
+  
+      // Display the form in a popup at the clicked location
+      L.popup()
+        .setLatLng([lat, lng])
+        .setContent(popupContent)
+        .openOn(map);
     });
   
-    // Reverse Geocoding using OpenStreetMap's Nominatim API
-    async function reverseGeocode(lat, lng) {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
-      const data = await response.json();
-      return data.display_name; // Address as a formatted string
-    }
-  
-    // Simulate submission (could send to backend here)
-    function submitIncident() {
-      const address = document.getElementById('address').value;
-      const description = document.getElementById('description').value;
-      alert(`Incident reported at ${address} with description: ${description}`);
-      closeForm();
-    }
-  
-    // Function to handle form submission with coordinates
+    // Function to handle form submission
     function submitIncidentForm(event, lat, lng) {
       event.preventDefault();
   
-      const address = document.getElementById('address').value;
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
       const incidentType = document.getElementById('incidentType').value;
-      const notes = document.getElementById('notes').value;
+      const description = document.getElementById('description').value;
+      const address = document.getElementById('address').value;
   
-      console.log("Incident reported at:", lat, lng);
+      // Handle form submission logic (e.g., send data to server, log it, etc.)
+      console.log("Incident reported at coordinates:", lat, lng);
+      console.log("Reporter:", name, email);
       console.log("Address:", address);
       console.log("Type:", incidentType);
-      console.log("Notes:", notes);
+      console.log("Description:", description);
   
-      map.closePopup();
-  
-      // Add a marker to the map to represent the incident
+      // Optionally add a marker to indicate submission
       L.marker([lat, lng]).addTo(map)
         .bindPopup(`
           <strong>Incident Reported</strong><br>
+          <strong>Reported by:</strong> ${name} (${email})<br>
           <strong>Location:</strong> ${address}<br>
           <strong>Type:</strong> ${incidentType}<br>
-          <strong>Notes:</strong> ${notes}
+          <strong>Description:</strong> ${description}
         `).openPopup();
+  
+      // Close the popup after submission
+      map.closePopup();
     }
   
-    function onLocationFound(e) {
-      L.marker(e.latlng).addTo(map)
-        .bindPopup("You are here: " + e.latlng.toString())
-        .openPopup();
-    }
-  
-    function onLocationError(e) {
-      alert(e.message);
-    }
-  
-    map.on('locationfound', onLocationFound);
-    map.on('locationerror', onLocationError);
-  
-    // Toggle widgets display
-    function toggleWidgets() {
-      const widgetContainer = document.getElementById('widget-container');
-      widgetContainer.style.display = widgetContainer.style.display === 'flex' ? 'none' : 'flex';
-    }
-  
-    // Slide logo navigation
-    function slideLeft() {
-      const container = document.getElementById('logo-container');
-      container.scrollBy({ left: -50, behavior: 'smooth' });
-    }
-  
-    function slideRight() {
-      const container = document.getElementById('logo-container');
-      container.scrollBy({ left: 50, behavior: 'smooth' });
-    }
-  
-    // Placeholder function for navigating to pages
-    function goToPage(pageNumber) {
-      alert("Navigating to page " + pageNumber);
-    }
-  
-    let isDragging = false;
-    let startX;
-    let scrollLeft;
-  
-    function startDrag(e) {
-      isDragging = true;
-      startX = e.pageX - document.getElementById('logo-container').offsetLeft;
-      scrollLeft = document.getElementById('logo-container').scrollLeft;
-      document.getElementById('logo-container').classList.add('dragging');
-    }
-  
-    function dragMove(e) {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - document.getElementById('logo-container').offsetLeft;
-      const walk = (x - startX) * 2; // scroll speed
-      document.getElementById('logo-container').scrollLeft = scrollLeft - walk;
-    }
-  
-    function stopDrag() {
-      isDragging = false;
-      document.getElementById('logo-container').classList.remove('dragging');
+    // Reverse Geocoding function to get address from coordinates
+    async function reverseGeocode(lat, lng) {
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+        const data = await response.json();
+        return data.display_name || "Address not found"; // Address as formatted string
+      } catch (error) {
+        console.error("Error in reverse geocoding:", error);
+        return "Address not found";
+      }
     }
   </script>
+  
+  
   
 </body>
 </html>
