@@ -108,8 +108,8 @@
       const address = await reverseGeocode(lat, lng);
 
       const popupContent = `
-        <div style="max-width: 300px; margin: auto;">
-          <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="width: 600px; margin: auto;">
+          <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="width: 400px; display: flex; flex-direction: column; align-items: center;">
             <h3 style="color: #333; text-align: center;">Report Incident</h3>
             <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
             <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
