@@ -139,6 +139,7 @@
   
   @media (max-width: 768px) { /* Target screens 768px wide or smaller */
     .popup-content {
+        top:40px;
       width: 100vw;
       height: 80vh;
       padding: 5px;
