@@ -246,6 +246,7 @@ body, html {
 .column {
     background-color: #e7f3d4;
     border-radius: 14px;
+    padding: 5px;
 }
 
 /* Responsive - Mobile styling */
