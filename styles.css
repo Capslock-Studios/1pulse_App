@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 1000;
 }
 
 
@@ -130,6 +130,23 @@
         order: 3; /* Move Item 4 to third position */
       }
       
+  .popup-content {
+    width: 350px;
+    max-width: 100%;
+    margin: 5px;
+    z-index: 1000001;
+  }
+  
+  @media (max-width: 768px) { /* Target screens 768px wide or smaller */
+    .popup-content {
+      width: 100vw;
+      height: 80vh;
+      padding: 5px;
+      box-sizing: border-box;
+      margin: 0;
+      z-index: 1000001;
+    }
+  }
       /* Responsive - Mobile styling */
       @media (max-width: 600px) {
         #widget-container {
@@ -169,17 +186,28 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 9999;
 }
 
-#logo-container {
-    display: flex;
-    overflow-x: hidden;
-    width: 300px;
-    height: 70px;
-    border: solid 1px grey;
-    height: 50px;
-    border-radius: 50px;
+
+    #logo-container {
+      display: flex;
+      overflow-x: auto;
+      overflow-x: scroll;  /* Enables horizontal scrolling */
+      scroll-behavior: smooth;
+      flex-wrap: nowrap;
+      gap: 3px;
+      padding: 5px;
+      border-radius: 50px;
+      white-space: nowrap;
+      background-color: rgba(255, 255, 255, 0.692);
+      cursor: grab;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border: solid 2px rgb(255, 255, 255);
+      overflow-y: hidden;  /* Hides vertical scrollbar */
+    }
+    #logo-container::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar in webkit browsers (Chrome, Safari) */
 }
 
 .logo img {
