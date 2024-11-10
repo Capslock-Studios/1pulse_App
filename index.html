@@ -329,7 +329,24 @@ window.onload = function() {
       </div>
     </div>
   </div>
+<style>/* Add these styles to your CSS file or in a <style> block */
 
+  .popup-content {
+    width: 350px;
+    max-width: 100%;
+    margin: 5px;
+  }
+  
+  @media (max-width: 768px) { /* Target screens 768px wide or smaller */
+    .popup-content {
+      width: 100vw;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      margin: 0;
+    }
+  }
+  </style>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialize the map
@@ -361,30 +378,31 @@ window.onload = function() {
       const { lat, lng } = e.latlng;
       const address = await reverseGeocode(lat, lng);
 
-      const popupContent = `
-        <div style="max-width: 300px; margin: auto;">
-          <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
-            <h3 style="color: #333; text-align: center;">Make Alert</h3>
-            <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
-            <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-            <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
-            <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-            <label for="incidentType" style="font-weight: bold; margin-top: 10px; width: 100%;">Incident Type:</label>
-            <select id="incidentType" name="incidentType" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-              <option value="" disabled selected>Select incident type</option>
-              <option value="Theft">Theft</option>
-              <option value="Vandalism">Vandalism</option>
-              <option value="Accident">Accident</option>
-              <option value="Other">Other</option>
-            </select>
-            <label for="description" style="font-weight: bold; margin-top: 10px; width: 100%;">Description:</label>
-            <textarea id="description" name="description" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;"></textarea>
-            <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">Address:</label>
-            <input type="text" id="address" name="address" value="${address}" readonly style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px; background-color: #f9f9f9;">
-            <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 4px; cursor: pointer;">Submit Alert</button>
-          </form>
-        </div>
-      `;
+     const popupContent = `
+  <div class="popup-content">
+    <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
+      <h3 style="color: #333; text-align: center;">Make Alert</h3>
+      <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
+      <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
+      <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
+      <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
+      <label for="incidentType" style="font-weight: bold; margin-top: 10px; width: 100%;">Incident Type:</label>
+      <select id="incidentType" name="incidentType" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
+        <option value="" disabled selected>Select incident type</option>
+        <option value="Theft">Theft</option>
+        <option value="Vandalism">Vandalism</option>
+        <option value="Accident">Accident</option>
+        <option value="Other">Other</option>
+      </select>
+      <label for="description" style="font-weight: bold; margin-top: 10px; width: 100%;">Description:</label>
+      <textarea id="description" name="description" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;"></textarea>
+      <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">Address:</label>
+      <input type="text" id="address" name="address" value="${address}" readonly style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px; background-color: #f9f9f9;">
+      <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 4px; cursor: pointer;">Submit Alert</button>
+    </form>
+  </div>
+`;
+
 
       L.popup({ className: "leaflet-popup" })
         .setLatLng([lat, lng])
