@@ -62,6 +62,11 @@
 
 </style>
   <script>
+
+
+
+
+
     // Function to show the modal with specific content
 function showModal(logoId) {
   const modal = document.getElementById('modal');
@@ -105,6 +110,99 @@ function closeModal() {
   modal.style.display = "none";
 }
 
+
+
+
+
+
+
+
+
+// Function to show the modal with specific content
+function showModal(logoId) {
+  const modal = document.getElementById('modal');
+  const title = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+  const carouselImages = document.querySelector('.carousel-images');
+  
+  // Information based on the logo clicked
+  switch(logoId) {
+    case 1:
+      title.textContent = "SAPS - South African Police Service";
+      body.textContent = "SAPS is responsible for maintaining law and order in South Africa, preventing crime, and ensuring the safety of citizens.";
+      carouselImages.innerHTML = `
+        <img src="images/saps-hero1.jpg" alt="SAPS Hero Image 1">
+        <img src="images/saps-hero2.jpg" alt="SAPS Hero Image 2">
+        <img src="images/saps-hero3.jpg" alt="SAPS Hero Image 3">
+      `;
+      break;
+    case 2:
+      title.textContent = "BoniZulu";
+      body.textContent = "BoniZulu is a fashion brand committed to uniting designers for fabric sourcing and promoting the elderly through crocheting programs.";
+      carouselImages.innerHTML = `
+        <img src="images/bonizulu-hero1.jpg" alt="BoniZulu Hero Image 1">
+        <img src="images/bonizulu-hero2.jpg" alt="BoniZulu Hero Image 2">
+        <img src="images/bonizulu-hero3.jpg" alt="BoniZulu Hero Image 3">
+      `;
+      break;
+    case 3:
+      title.textContent = "Hillbrow";
+      body.textContent = "Hillbrow is a diverse and vibrant neighborhood in Johannesburg, known for its rich culture and mix of residential and commercial spaces.";
+      carouselImages.innerHTML = `
+        <img src="images/hillbrow-hero1.jpg" alt="Hillbrow Hero Image 1">
+        <img src="images/hillbrow-hero2.jpg" alt="Hillbrow Hero Image 2">
+        <img src="images/hillbrow-hero3.jpg" alt="Hillbrow Hero Image 3">
+      `;
+      break;
+    case 4:
+      title.textContent = "CPF - Community Policing Forum";
+      body.textContent = "CPF works closely with SAPS to improve safety and security in communities, promoting cooperation between police and residents.";
+      carouselImages.innerHTML = `
+        <img src="images/cpf-hero1.jpg" alt="CPF Hero Image 1">
+        <img src="images/cpf-hero2.jpg" alt="CPF Hero Image 2">
+        <img src="images/cpf-hero3.jpg" alt="CPF Hero Image 3">
+      `;
+      break;
+    case 5:
+      title.textContent = "Pulse";
+      body.textContent = "Pulse is an initiative dedicated to monitoring street activities, overseeing public services, and tracking community-driven efforts for safer environments.";
+      carouselImages.innerHTML = `
+        <img src="images/pulse-hero1.jpg" alt="Pulse Hero Image 1">
+        <img src="images/pulse-hero2.jpg" alt="Pulse Hero Image 2">
+        <img src="images/pulse-hero3.jpg" alt="Pulse Hero Image 3">
+      `;
+      break;
+    default:
+      title.textContent = "";
+      body.textContent = "";
+  }
+
+  // Display the modal
+  modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+  const modal = document.getElementById('modal');
+  modal.style.display = "none";
+}
+
+// Carousel control functionality
+let carouselIndex = 0;
+
+function moveCarousel(direction) {
+  const images = document.querySelectorAll('.carousel-images img');
+  carouselIndex = (carouselIndex + direction + images.length) % images.length;
+  images.forEach((img, index) => {
+    img.style.display = index === carouselIndex ? 'block' : 'none';
+  });
+}
+
+// Initially show the first image in the carousel
+window.onload = function() {
+  moveCarousel(0);  // Show the first image when the page loads
+}
+
   </script>
   <div id="logo-nav">
     <button class="nav-btn" onclick="slideLeft()">&#9664;</button>
@@ -128,14 +226,68 @@ function closeModal() {
     <button class="nav-btn" onclick="slideRight()">&#9654;</button>
   </div>
   
-  <!-- Modal Structure -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h2 id="modal-title"></h2>
-      <p id="modal-body"></p>
+ <!-- Modal Structure -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    
+    <!-- Modal Header -->
+    <h2 id="modal-title"></h2>
+    
+    <!-- Modal Description -->
+    <p id="modal-body"></p>
+
+    <!-- Hero Image Carousel -->
+    <div id="carousel" class="carousel">
+      <div class="carousel-images">
+        <img src="images/hero1.jpg" alt="Hero Image 1">
+        <img src="images/hero2.jpg" alt="Hero Image 2">
+        <img src="images/hero3.jpg" alt="Hero Image 3">
+      </div>
+      <button class="carousel-prev" onclick="moveCarousel(-1)">&#9664;</button>
+      <button class="carousel-next" onclick="moveCarousel(1)">&#9654;</button>
+    </div>
+
+    <!-- Bloc Style Image with Description -->
+    <div class="bloc-image">
+      <img src="images/bloc-image.jpg" alt="Bloc Style Image">
+      <p class="bloc-description">This is the description for the bloc-style image.</p>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="social-media">
+      <a href="#" class="social-icon" target="_blank">
+        <img src="images/facebook-icon.svg" alt="Facebook">
+      </a>
+      <a href="#" class="social-icon" target="_blank">
+        <img src="images/twitter-icon.svg" alt="Twitter">
+      </a>
+      <a href="#" class="social-icon" target="_blank">
+        <img src="images/instagram-icon.svg" alt="Instagram">
+      </a>
+      <a href="#" class="social-icon" target="_blank">
+        <img src="images/linkedin-icon.svg" alt="LinkedIn">
+      </a>
+      <a href="#" class="social-icon" target="_blank">
+        <img src="images/youtube-icon.svg" alt="YouTube">
+      </a>
+      <a href="#" class="social-icon" target="_blank">
+        <img src="images/tiktok-icon.svg" alt="TikTok">
+      </a>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <a href="tel:+1234567890" class="contact-icon">
+        <img src="images/phone-icon.svg" alt="Call"> Call
+      </a>
+      <a href="https://wa.me/1234567890" class="contact-icon">
+        <img src="images/whatsapp-icon.svg" alt="WhatsApp"> WhatsApp
+      </a>
     </div>
   </div>
+</div>
+
   
   <!-- Modal Structure -->
   <div id="modal" class="modal">
@@ -263,6 +415,141 @@ function closeModal() {
   </script>
 
   <style>
+/* General Modal Styles */
+.modal {
+  display: none; /* Hide by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 100%;
+  left: 21%;
+  top: 72px;
+  position: relative;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: black;
+}
+
+/* Carousel Styles */
+.carousel {
+  position: relative;
+  margin: 20px 0;
+}
+
+.carousel-images {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.carousel-images img {
+  width: 100%;
+  max-width: 100%;
+  display: none; /* Hide images initially */
+}
+
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 30px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+/* Bloc Image with Description */
+.bloc-image {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bloc-image img {
+  width: 200px;
+  height: 150px;
+}
+
+.bloc-description {
+  flex-grow: 1;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Social Media Icons */
+.social-media {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social-icon img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Contact Info */
+.contact-info {
+  margin-top: 20px;
+}
+
+.contact-icon {
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.contact-icon img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+
     /* General styles */
     body, html {
       margin: 0;
