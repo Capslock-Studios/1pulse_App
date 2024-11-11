@@ -85,10 +85,8 @@
         position: absolute;
         bottom: 10%;
         width: 100%;
-        overflow-y: scroll;
+        overflow-x: scroll;
         height: auto;
-        display: flex;
-        justify-content: space-around;
         z-index: 2;
         border-radius: 12px;
         background-color: rgb(255, 253, 251);
@@ -108,12 +106,7 @@
         background-color: #e7f3d4;
         border-radius: 14px;
        }
-      /* Reorder widget items on desktop and mobile */
-      #widget-container {
-        display: flex;
-        flex-wrap: wrap;
-      }
-      
+     
       .widget:nth-child(1) {
         order: 2; /* Move Item 1 to second position */
       }
@@ -151,7 +144,6 @@
       /* Responsive - Mobile styling */
       @media (max-width: 600px) {
         #widget-container {
-          flex-direction: column;
           align-items: center;
           bottom: 5%;
         }
