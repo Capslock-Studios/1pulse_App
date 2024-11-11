@@ -6,22 +6,27 @@
   <title>GJNO - Greater Johannesburg Neighborhood Oversight</title>
   <style>
     /* Basic Reset and Styles */
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #3f3f3f; }
-    header { text-align: center; padding: 20px; background: #155705; color: #fff; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; }
+    header { text-align: center; padding: 20px; background: #333; color: #fff; }
     h1, h2 { margin: 0; }
     .logo { width: 100px; }
 
     /* Round Image Buttons */
     .button-container { text-align: center; padding: 20px; }
+    .round-button-container {
+      display: inline-block;
+      text-align: center;
+      margin: 10px;
+    }
     .round-button {
       width: 70px;
       height: 70px;
-      margin: 10px;
       border-radius: 50%;
       background-size: cover;
       display: inline-block;
       cursor: pointer;
     }
+    .company-name { margin-top: 5px; font-size: 14px; color: #333; }
 
     /* Modal Styles */
     .modal {
@@ -54,23 +59,46 @@
 
 <!-- Header with Logo -->
 <header>
-  <img src="logo.png" alt="GJNO Logo" class="logo">
+  <img src="images/gjno logo.png" alt="GJNO Logo" class="logo">
   <h1>Greater Johannesburg Neighborhood Oversight (GJNO)</h1>
   <p>Building a Safer, Cleaner, and Accountable Johannesburg</p>
 </header>
 
-<!-- 20 Round Image Buttons -->
+<!-- 20 Round Image Buttons with Company Names -->
 <div class="button-container">
   <!-- Generating buttons with JavaScript for simplicity -->
   <script>
-    function createButton(id, imageUrl) {
-      document.write(`<div class="round-button" onclick="openModal('modal${id}')" style="background-image: url('${imageUrl}');"></div>`);
-    }
+    const companies = [
+      { name: 'GJNO', logo: 'file:///C:/Users/USER/Documents/GitHub/1pulse_App/images/gjno%20logo.png' },
+      { name: 'Company 2', logo: 'https://via.placeholder.com/70?text=2' },
+      { name: 'Company 3', logo: 'https://via.placeholder.com/70?text=3' },
+      { name: 'Company 4', logo: 'https://via.placeholder.com/70?text=4' },
+      { name: 'Company 5', logo: 'https://via.placeholder.com/70?text=5' },
+      { name: 'Company 6', logo: 'https://via.placeholder.com/70?text=6' },
+      { name: 'Company 7', logo: 'https://via.placeholder.com/70?text=7' },
+      { name: 'Company 8', logo: 'https://via.placeholder.com/70?text=8' },
+      { name: 'Company 9', logo: 'https://via.placeholder.com/70?text=9' },
+      { name: 'Company 10', logo: 'https://via.placeholder.com/70?text=10' },
+      { name: 'Company 11', logo: 'https://via.placeholder.com/70?text=11' },
+      { name: 'Company 12', logo: 'https://via.placeholder.com/70?text=12' },
+      { name: 'Company 13', logo: 'https://via.placeholder.com/70?text=13' },
+      { name: 'Company 14', logo: 'https://via.placeholder.com/70?text=14' },
+      { name: 'Company 15', logo: 'https://via.placeholder.com/70?text=15' },
+      { name: 'Company 16', logo: 'https://via.placeholder.com/70?text=16' },
+      { name: 'Company 17', logo: 'https://via.placeholder.com/70?text=17' },
+      { name: 'Company 18', logo: 'https://via.placeholder.com/70?text=18' },
+      { name: 'Company 19', logo: 'https://via.placeholder.com/70?text=19' },
+      { name: 'Company 20', logo: 'https://via.placeholder.com/70?text=20' }
+    ];
 
-    // Placeholder images for buttons
-    for (let i = 1; i <= 20; i++) {
-      createButton(i, `https://via.placeholder.com/70?text=${i}`);
-    }
+    companies.forEach((company, index) => {
+      document.write(`
+        <div class="round-button-container">
+          <div class="round-button" onclick="openModal('modal${index + 1}')" style="background-image: url('${company.logo}');"></div>
+          <div class="company-name">${company.name}</div>
+        </div>
+      `);
+    });
   </script>
 </div>
 
@@ -94,17 +122,17 @@
 <div id="modals">
   <script>
     // Generating modal content dynamically
-    for (let i = 1; i <= 20; i++) {
+    companies.forEach((company, index) => {
       document.write(`
-        <div id="modal${i}" class="modal">
+        <div id="modal${index + 1}" class="modal">
           <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Information for Button ${i}</h2>
-            <p>This is the modal content for button ${i}. You can add specific information for each button here.</p>
+            <h2>Information for ${company.name}</h2>
+            <p>This is the modal content for ${company.name}. You can add specific information for each company here.</p>
           </div>
         </div>
       `);
-    }
+    });
   </script>
 </div>
 
