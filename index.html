@@ -9,15 +9,9 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-
-
-
-
-  
-  <div id="map"></div>
+<div id="map"></div>
 <style>
   /* General modal styles */
-
 .close-btn {
   position: absolute;
   top: 10px;
@@ -413,8 +407,11 @@ window.onload = function() {
             <div id="modal${index + 1}" class="modal">
               <div class="modal-content">
                 <span class="close-btn" onclick="closeModal()">&times;</span>
-                <h2>Information for ${company.name}</h2>
-                <p>This is the modal content for ${company.name}. You can add specific information for each company here.</p>
+                <h2>Participation of ${company.name}</h2>
+                <p> ${company.name} Has signed up to participate in the Safer Festive Seasons initiative.
+                  Join ${company.name} this festive season and #MakeYourImpact!</p>
+                  <a style="background: orange; color: white; border-radius:22px; text-decoration:none;
+                   margin:12px;  padding: 10px;" href="#">Participate</a>
               </div>
             </div>
           `);
@@ -463,7 +460,7 @@ window.onload = function() {
      const popupContent = `
   <div class="popup-content">
     <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
-      <h3 style="color: #333; text-align: center;">Make Alert</h3>
+      <h3 style="color: #333; text-align: center;">Make An Alert</h3>
       <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
       <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
       <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
