@@ -126,8 +126,10 @@
   .popup-content {
     width: 350px;
     max-width: 100%;
-    margin: 5px;
+    margin: 20px;
     z-index: 1000001;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   
   @media (max-width: 768px) { /* Target screens 768px wide or smaller */
