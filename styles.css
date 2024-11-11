@@ -287,3 +287,67 @@ body, html {
       }
       
 }
+
+/* Hero Carousel */
+.hero-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 60vh; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222;
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    display: none;
+  }
+  
+  .carousel-slide img:first-child {
+    display: block; /* Show first image by default */
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+  }
+  
+  .carousel-button.prev {
+    left: 10px;
+  }
+  
+  .carousel-button.next {
+    right: 10px;
+  }
+  
+  /* Hero Text Overlay */
+  .hero-text {
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+  }
+  
+  .hero-text h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .hero-text p {
+    font-size: 3px;
+  }
+  
