@@ -25,19 +25,6 @@
   color: black;
 }
 
-/* Style the logo items */
-#logo-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.logo img {
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-}
 
 
 </style>
@@ -437,6 +424,9 @@ window.onload = function() {
     
 
   </div>
+<style>/* Add these styles to your CSS file or in a <style> block */
+
+  </style>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialize the map
@@ -474,42 +464,31 @@ const addressLookup = {
 const sampleData = [
     {
       type: 'Good Deeds',
-      name: 'John Doe',
-      description: 'Helped an elderly person cross the road',
+      name: 'Siya Percy',
+      description: 'The First spot for a wall of fame',
       date: '2024-11-11',
       time: '14:30',
       location: [-26.2041, 28.0473],
-      imageUrl: 'images/Pulse Cover2.jpg',
+      imageUrl: 'images/24.jpg',
     },
     // Add more sample data here
   ];
 
-// Function to fetch incidents and create markers
-async function fetchIncidents() {
-  try {
-    const response = await fetch('/get-incidents');
-    const data = await response.json();
-
-    // Loop through the fetched incidents and create markers
-    data.forEach(incident => {
-      // Create a marker for each incident
-      const marker = L.marker(incident.location, { icon: icons[incident.type] }).addTo(map);
-
-      // Generate the popup content
-      const imageUrl = `/get-image/${incident.imageId.$oid}`;  // Assuming you store imageId as an ObjectId in MongoDB
-
-      marker.bindPopup(`
-        <strong>${incident.type}</strong><br>
-        <em>${incident.date} ${incident.time}</em><br>
-        ${incident.description}<br>
-        <img src="${imageUrl}" alt="Incident image" width="100" height="100"><br>
-        <p>Submitted by: ${incident.name}</p>
-      `);
-    });
-  } catch (error) {
-    console.error('Error fetching incidents:', error);
-  }
-}
+// Function to create a marker for each sample incident
+sampleData.forEach(data => {
+  const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
+  marker.bindPopup(`
+    <strong>${data.type}</strong><br>
+    <em>${data.date} ${data.time}</em><br>
+    ${data.description}<br>
+    <img src="${data.imageUrl}" alt="Incident image" width="250" height="150">
+    <p>Submitted by: ${data.name}</p>
+     <p >Learn More: <a href="https://wa.me/+27685090669?text=May%20I%20enquire%20about%20this%20range" class="contact-icon" style="font-size: 11px;" target="_blank">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a></p>
+      
+  `);
+});
 
 // Function to find the closest predefined address
 function getPredefinedAddress(lat, lng) {
@@ -863,6 +842,11 @@ body {
   </style>
 </body>
 </html>
+
+
+
+
+
 
 
 
