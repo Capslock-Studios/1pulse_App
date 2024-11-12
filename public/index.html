@@ -25,19 +25,6 @@
   color: black;
 }
 
-/* Style the logo items */
-#logo-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.logo img {
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-}
 
 
 </style>
@@ -437,6 +424,9 @@ window.onload = function() {
     
 
   </div>
+<style>/* Add these styles to your CSS file or in a <style> block */
+
+  </style>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialize the map
@@ -474,42 +464,31 @@ const addressLookup = {
 const sampleData = [
     {
       type: 'Good Deeds',
-      name: 'John Doe',
-      description: 'Helped an elderly person cross the road',
+      name: 'Siya Percy',
+      description: 'The First spot for a wall of fame',
       date: '2024-11-11',
       time: '14:30',
       location: [-26.2041, 28.0473],
-      imageUrl: 'images/Pulse Cover2.jpg',
+      imageUrl: 'images/24.jpg',
     },
     // Add more sample data here
   ];
 
-// Function to fetch incidents and create markers
-async function fetchIncidents() {
-  try {
-    const response = await fetch('/get-incidents');
-    const data = await response.json();
-
-    // Loop through the fetched incidents and create markers
-    data.forEach(incident => {
-      // Create a marker for each incident
-      const marker = L.marker(incident.location, { icon: icons[incident.type] }).addTo(map);
-
-      // Generate the popup content
-      const imageUrl = `/get-image/${incident.imageId.$oid}`;  // Assuming you store imageId as an ObjectId in MongoDB
-
-      marker.bindPopup(`
-        <strong>${incident.type}</strong><br>
-        <em>${incident.date} ${incident.time}</em><br>
-        ${incident.description}<br>
-        <img src="${imageUrl}" alt="Incident image" width="100" height="100"><br>
-        <p>Submitted by: ${incident.name}</p>
-      `);
-    });
-  } catch (error) {
-    console.error('Error fetching incidents:', error);
-  }
-}
+// Function to create a marker for each sample incident
+sampleData.forEach(data => {
+  const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
+  marker.bindPopup(`
+    <strong>${data.type}</strong><br>
+    <em>${data.date} ${data.time}</em><br>
+    ${data.description}<br>
+    <img src="${data.imageUrl}" alt="Incident image" width="250" height="150">
+    <p>Submitted by: ${data.name}</p>
+     <p>Learn More: <a href="https://wa.me/+27685090669?text=May%20I%20enquire%20about%20this%20range" class="contact-icon" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a></p>
+      
+  `);
+});
 
 // Function to find the closest predefined address
 function getPredefinedAddress(lat, lng) {
@@ -553,39 +532,26 @@ function submitForm(lat, lng, address) {
       const { lat, lng } = e.latlng;
       const address = await reverseGeocode(lat, lng);
 
-     const popupContent = `
-  <div class="popup-content">
-    <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
-      <h3 style="color: #333; text-align: center;">Make An Alert</h3>
-      <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
-      <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-      <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
-      <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-       <label for="idPassport" style="font-weight: bold; margin-top: 10px; width: 100%;">ID/Passport:</label>
-        <input type="text" id="idPassport" name="idPassport" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-
-        <label for="phone" style="font-weight: bold; margin-top: 10px; width: 100%;">Phone:</label>
-        <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-<label for="imageUpload" style="font-weight: bold; margin-top: 10px; width: 100%;">Evidence Image:</label>
-        <input type="file" id="imageUpload" name="imageUpload" accept="image/*" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
- <label for="incidentType" style="font-weight: bold; margin-top: 10px; width: 100%;">Incident Type:</label>
-      <select id="incidentType" name="incidentType" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-        <option value="" disabled selected>Select incident type</option>
-        <option value="Other">Good deeds</option>
-        <option value="Theft">Health</option>
-        <option value="Vandalism">Xenophobia</option>
-        <option value="Accident">Looting</option>
-        <option value="Other">Property damage</option>
-        <option value="Other">Violant crime</option>
-        <option value="Other">Other</option>
-      </select>
-      <label for="description" style="font-weight: bold; margin-top: 10px; width: 100%;">Description:</label>
-      <textarea id="description" name="description" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;"></textarea>
-      <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">Address:</label>
-      <input type="text" id="address" name="address" value="${address}" readonly style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px; background-color: #f9f9f9;">
-      <button type="submit" style="margin-top: 15px;margin-bottom: 15px; padding: 10px 15px; color: #fff; background-color: #007BFF; border: none; border-radius: 4px; cursor: pointer;">Submit Alert</button>
+     const popupContent = `<div class="popup-content">
+      <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center; max-width: 300px; margin: auto;">
+      
+      <!-- Title -->
+      <h3 style="color: #333; text-align: center; font-family: Arial, sans-serif;">Make An Alert</h3>
+      
+      <!-- Address Display with Copy Button -->
+      <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">You have selected this Address: 
+        <span id="address-display" style="color: #007BFF; cursor: pointer;">${address}</span>
+      </label>
+  
+      <!-- Google Form Embedded -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpmB_UKneDSW1IKvVx5wJE8licVtqeac_o3vDynUV7Y7tKUw/viewform?embedded=true" width="300" height="1126" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      
+      <!-- Submit Button -->
+      <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 6px; cursor: pointer;">
+        Submit Alert
+      </button>
     </form>
-  </div>
+    </div>
 `;
 
 
@@ -876,6 +842,11 @@ body {
   </style>
 </body>
 </html>
+
+
+
+
+
 
 
 
