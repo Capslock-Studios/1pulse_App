@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 
 const incidentSchema = new mongoose.Schema({
-  type: { type: String, required: true },
-  date: { type: String, required: true },
-  time: { type: String, required: true },
-  description: { type: String, required: true },
+  type: String,
+  name: String,
+  description: String,
+  date: String,
+  time: String,
   location: {
-    type: [Number], // [longitude, latitude]
-    required: true
+    type: { type: String },
+    coordinates: [Number]
   },
-  imageUrl: { type: String },
-  name: { type: String, required: true }
+  imageId: mongoose.Schema.Types.ObjectId,
+  phone: String,
+  idPassport: String
 });
 
 const Incident = mongoose.model('Incident', incidentSchema);

@@ -1,0 +1,10 @@
+app.get('/get-incidents', async (req, res) => {
+  try {
+    const incidents = await Incident.find({});
+    console.log(incidents);  // Log the incidents to verify data
+    res.status(200).json(incidents);
+  } catch (err) {
+    console.error("Error fetching incidents:", err);
+    res.status(500).send('Error fetching incidents.');
+  }
+});
