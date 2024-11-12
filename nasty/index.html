@@ -1,0 +1,35 @@
+<form id="incidentForm" enctype="multipart/form-data">
+    <label for="incidentType">Incident Type:</label>
+    <select id="incidentType" required>
+      <option value="Good Deeds">Good Deeds</option>
+      <option value="Health">Health</option>
+      <option value="Other">Other</option>
+    </select>
+    
+    <label for="image">Upload Image:</label>
+    <input type="file" id="image" name="file" accept="image/*">
+    
+    <button type="submit">Submit</button>
+  </form>
+  
+  <script>
+    document.getElementById('incidentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+  
+      const formData = new FormData();
+      formData.append('file', document.getElementById('image').files[0]);
+  
+      fetch('/upload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('File uploaded successfully:', data);
+      })
+      .catch(err => {
+        console.error('Error uploading file:', err);
+      });
+    });
+  </script>
+  
