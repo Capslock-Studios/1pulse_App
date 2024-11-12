@@ -458,13 +458,13 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x
 
 // Define icons for each incident type
 const icons = {
-  'Good Deeds': L.icon({ iconUrl: 'images/Africa City.png', iconSize: [30, 30] }),
-  'Health': L.icon({ iconUrl: 'health.png', iconSize: [30, 30] }),
-  'Property Damage': L.icon({ iconUrl: 'property-damage.png', iconSize: [30, 30] }),
-  'Violent Crime': L.icon({ iconUrl: 'violent-crime.png', iconSize: [30, 30] }),
-  'Looting': L.icon({ iconUrl: 'looting.png', iconSize: [30, 30] }),
-  'Xenophobia': L.icon({ iconUrl: 'xenophobia.png', iconSize: [30, 30] }),
-};
+    'Good Deeds': L.icon({ iconUrl: 'images/good deed icon.png', iconSize: [30, 30] }),
+    'Health': L.icon({ iconUrl: 'health.png', iconSize: [30, 30] }),
+    'Property Damage': L.icon({ iconUrl: 'property-damage.png', iconSize: [30, 30] }),
+    'Violent Crime': L.icon({ iconUrl: 'violent-crime.png', iconSize: [30, 30] }),
+    'Looting': L.icon({ iconUrl: 'looting.png', iconSize: [30, 30] }),
+    'Xenophobia': L.icon({ iconUrl: 'xenophobia.png', iconSize: [30, 30] }),
+  };
 
 // Lookup for predefined addresses based on coordinates
 const addressLookup = {
@@ -513,41 +513,27 @@ function displayFormPopup(lat, lng, address) {
   const popupContent = `
     <div class="popup-content">
       <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center; max-width: 300px; margin: auto;">
-        <h3 style="color: #333; text-align: center; font-family: Arial, sans-serif;">Make An Alert</h3>
-        
-        <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
-        <input type="text" id="name" name="name" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-
-        <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
-        <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-
-        <label for="idPassport" style="font-weight: bold; margin-top: 10px; width: 100%;">ID/Passport:</label>
-        <input type="text" id="idPassport" name="idPassport" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-
-        <label for="phone" style="font-weight: bold; margin-top: 10px; width: 100%;">Phone:</label>
-        <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-
-        <label for="incidentType" style="font-weight: bold; margin-top: 10px; width: 100%;">Incident Type:</label>
-        <select id="incidentType" name="incidentType" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-          <option value="" disabled selected>Select incident type</option>
-          ${Object.keys(icons).map(type => `<option value="${type}">${type}</option>`).join('')}
-        </select>
-
-        <label for="description" style="font-weight: bold; margin-top: 10px; width: 100%;">Description:</label>
-        <textarea id="description" name="description" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;"></textarea>
-
-        <label for="imageUpload" style="font-weight: bold; margin-top: 10px; width: 100%;">Evidence Image:</label>
-        <input type="file" id="imageUpload" name="imageUpload" accept="image/*" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-
-        <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">Address:</label>
-        <input type="text" id="address" name="address" value="${address}" readonly style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ddd; background-color: #f9f9f9;">
-
-        <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 6px; cursor: pointer;">
-          Submit Alert
-        </button>
-      </form>
+      
+      <!-- Title -->
+      <h3 style="color: #333; text-align: center; font-family: Arial, sans-serif;">Make An Alert</h3>
+      
+      <!-- Address Display with Copy Button -->
+      <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">You have selected this Address: 
+        <span id="address-display" style="color: #007BFF; cursor: pointer;">${address}</span>
+      </label>
+  
+      <!-- Google Form Embedded -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpmB_UKneDSW1IKvVx5wJE8licVtqeac_o3vDynUV7Y7tKUw/viewform?embedded=true" width="300" height="1126" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      
+      <!-- Submit Button -->
+      <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 6px; cursor: pointer;">
+        Submit Alert
+      </button>
+    </form>
     </div>
+    
   `;
+  
   L.popup({ className: "leaflet-popup" }).setLatLng([lat, lng]).setContent(popupContent).openOn(map);
 }
 
