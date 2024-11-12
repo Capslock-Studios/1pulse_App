@@ -437,25 +437,21 @@ window.onload = function() {
     
 
   </div>
-<style>/* Add these styles to your CSS file or in a <style> block */
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    const map = L.map('map', {
+      center: [-26.2041, 28.0473], // Coordinates for Johannesburg as an example
+      zoom: 18,                    // Initial zoom level for close-up view
+      maxZoom: 18,                 // Set max zoom to the closest level
+      minZoom: 1                   // Optional: Set minimum zoom level
+    });
 
-  </style>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-// Initialize the map centered on Johannesburg
-const map = L.map('map', {
-  center: [-26.2041, 28.0473],
-  zoom: 18,
-  maxZoom: 18,
-  minZoom: 1,
-});
-
-// Add CartoDB Positron tile layer for a light base map
-L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://carto.com">CARTO</a>',
-  maxZoom: 20
-}).addTo(map);
-
+ // Use CartoDB Positron tiles for a light base map
+ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://carto.com">CARTO</a>',
+      maxZoom: 20
+    }).addTo(map);
 // Define icons for each incident type
 const icons = {
     'Good Deeds': L.icon({ iconUrl: 'images/good deed icon.png', iconSize: [30, 30] }),
@@ -466,52 +462,98 @@ const icons = {
     'Xenophobia': L.icon({ iconUrl: 'xenophobia.png', iconSize: [30, 30] }),
   };
 
-// Lookup for predefined addresses based on coordinates
+// Predefined addresses for specific latitude and longitude points
 const addressLookup = {
   "-26.2041,28.0473": "Johannesburg City Center, South Africa",
   "-26.1952,28.0342": "Braamfontein, Johannesburg, South Africa",
   "-26.2023,28.0436": "Newtown, Johannesburg, South Africa",
+  // Add more predefined addresses here as needed
 };
 
 // Sample data for incidents
 const sampleData = [
-  {
-    type: 'Good Deeds',
-    name: 'John Doe',
-    description: 'Helped an elderly person cross the road',
-    date: '2024-11-11',
-    time: '14:30',
-    location: [-26.2041, 28.0473],
-    imageUrl: 'images/Pulse Cover2.jpg',
-  },
-  // Additional sample data can be added here
-];
+    {
+      type: 'Good Deeds',
+      name: 'John Doe',
+      description: 'Helped an elderly person cross the road',
+      date: '2024-11-11',
+      time: '14:30',
+      location: [-26.2041, 28.0473],
+      imageUrl: 'images/Pulse Cover2.jpg',
+    },
+    // Add more sample data here
+  ];
 
-// Helper function to create a marker and bind popup content
-function createMarker(data) {
-  const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
-  marker.bindPopup(`
-    <strong>${data.type}</strong><br>
-    <em>${data.date} ${data.time}</em><br>
-    ${data.description}<br>
-    <img src="${data.imageUrl}" alt="Incident image" width="100" height="100">
-    <p>Submitted by: ${data.name}</p>
-  `);
+// Function to fetch incidents and create markers
+async function fetchIncidents() {
+  try {
+    const response = await fetch('/get-incidents');
+    const data = await response.json();
+
+    // Loop through the fetched incidents and create markers
+    data.forEach(incident => {
+      // Create a marker for each incident
+      const marker = L.marker(incident.location, { icon: icons[incident.type] }).addTo(map);
+
+      // Generate the popup content
+      const imageUrl = `/get-image/${incident.imageId.$oid}`;  // Assuming you store imageId as an ObjectId in MongoDB
+
+      marker.bindPopup(`
+        <strong>${incident.type}</strong><br>
+        <em>${incident.date} ${incident.time}</em><br>
+        ${incident.description}<br>
+        <img src="${imageUrl}" alt="Incident image" width="100" height="100"><br>
+        <p>Submitted by: ${incident.name}</p>
+      `);
+    });
+  } catch (error) {
+    console.error('Error fetching incidents:', error);
+  }
 }
 
-// Display all sample data as markers on the map
-sampleData.forEach(createMarker);
-
-// Get predefined address based on lat and lng coordinates
+// Function to find the closest predefined address
 function getPredefinedAddress(lat, lng) {
   const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
   return addressLookup[key] || "Unknown Address";
 }
 
-// Function to display the form in a popup when map is clicked
-function displayFormPopup(lat, lng, address) {
-  const popupContent = `
-    <div class="popup-content">
+
+// Function to handle form submission and add new marker
+function submitForm(lat, lng, address) {
+  const type = document.getElementById('incidentType').value;
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const date = new Date().toLocaleDateString();
+  const time = new Date().toLocaleTimeString();
+  const icon = icons[type];
+
+  const marker = L.marker([lat, lng], { icon }).addTo(map);
+  marker.bindPopup(`
+    <strong>${type}</strong><br>
+    <em>${date} ${time}</em><br>
+    ${description}<br>
+    <p>Submitted by: ${name}</p>
+    <p>Location: ${address}</p>
+  `);
+  
+  map.closePopup(); // Close form popup after submission
+}
+    // Toggle the display of the widget container
+    function toggleWidgets() {
+      const widgetContainer = document.getElementById("widget-container");
+      if (widgetContainer.style.display === "none" || widgetContainer.style.display === "") {
+          widgetContainer.style.display = "flex";
+      } else {
+          widgetContainer.style.display = "none";
+      }
+    }
+
+    // Handle map click to show styled form in popup with coordinates filled in
+    map.on('click', async (e) => {
+      const { lat, lng } = e.latlng;
+      const address = await reverseGeocode(lat, lng);
+
+     const popupContent = `<div class="popup-content">
       <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center; max-width: 300px; margin: auto;">
       
       <!-- Title -->
@@ -531,54 +573,28 @@ function displayFormPopup(lat, lng, address) {
       </button>
     </form>
     </div>
-    
-  `;
-  
-  L.popup({ className: "leaflet-popup" }).setLatLng([lat, lng]).setContent(popupContent).openOn(map);
-}
 
-// Handle map click event to show form popup
-map.on('click', async (e) => {
-  const { lat, lng } = e.latlng;
-  const address = await reverseGeocode(lat, lng);
-  displayFormPopup(lat, lng, address);
-});
+`;
 
-// Reverse geocoding to get address from coordinates
-async function reverseGeocode(lat, lng) {
-  try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
-    const data = await response.json();
-    return data.display_name || "Address not found";
-  } catch (error) {
-    console.error("Error in reverse geocoding:", error);
-    return "Address not found";
-  }
-}
 
-// Submit incident form and add new marker on the map
-function submitIncidentForm(event, lat, lng) {
-  event.preventDefault();
+      L.popup({ className: "leaflet-popup" })
+        .setLatLng([lat, lng])
+        .setContent(popupContent)
+        .openOn(map);
+    });
 
-  const type = document.getElementById('incidentType').value;
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const idPassport = document.getElementById('idPassport').value;
-  const phone = document.getElementById('phone').value;
-  const description = document.getElementById('description').value;
-  const address = document.getElementById('address').value;
-  const date = new Date().toLocaleDateString();
-  const time = new Date().toLocaleTimeString();
-
-  const imageFile = document.getElementById('imageUpload').files[0];
-  const imageUrl = imageFile ? URL.createObjectURL(imageFile) : 'path/to/default-image.jpg';
-
-  
-  const markerData = { type, name, description, date, time, location: [lat, lng], imageUrl: 'path/to/image.jpg' };
-  createMarker(markerData);
-  map.closePopup();
-}
-</script>
+    // Reverse Geocoding function to get address from coordinates
+    async function reverseGeocode(lat, lng) {
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+        const data = await response.json();
+        return data.display_name || "Address not found";
+      } catch (error) {
+        console.error("Error in reverse geocoding:", error);
+        return "Address not found";
+      }
+    }
+  </script>
 
   <style>
 /* General Modal Styles */
@@ -848,10 +864,6 @@ body {
   </style>
 </body>
 </html>
-
-
-
-
 
 
 
