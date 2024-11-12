@@ -296,13 +296,11 @@ window.onload = function() {
   <!-- Modal Button with Image -->
   <button id="modal-button" onclick="toggleWidgets()">
     <img src="images/ipulse-logo.png" alt="1Pulse" style="width: 50px; height: 50px; vertical-align: middle;">
-   
   </button>
-
   <!-- Widgets -->
   <div id="widget-container">
  
-            <style>
+      <style>
         /* Basic Reset and Styles */
         header { text-align: center; padding: 20px; background: #333; color: #fff; }
         h1, h2 { margin: 0; }
@@ -432,10 +430,6 @@ window.onload = function() {
         });
       </script>
     </div>
-    
-    </body>
-    
-
   </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -470,19 +464,6 @@ const addressLookup = {
   // Add more predefined addresses here as needed
 };
 
-// Sample data for incidents
-const sampleData = [
-    {
-      type: 'Good Deeds',
-      name: 'John Doe',
-      description: 'Helped an elderly person cross the road',
-      date: '2024-11-11',
-      time: '14:30',
-      location: [-26.2041, 28.0473],
-      imageUrl: 'images/Pulse Cover2.jpg',
-    },
-    // Add more sample data here
-  ];
 
 // Function to fetch incidents and create markers
 async function fetchIncidents() {
