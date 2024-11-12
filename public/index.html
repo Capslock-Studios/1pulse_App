@@ -437,9 +437,6 @@ window.onload = function() {
     
 
   </div>
-<style>/* Add these styles to your CSS file or in a <style> block */
-
-  </style>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialize the map
@@ -487,17 +484,32 @@ const sampleData = [
     // Add more sample data here
   ];
 
-// Function to create a marker for each sample incident
-sampleData.forEach(data => {
-  const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
-  marker.bindPopup(`
-    <strong>${data.type}</strong><br>
-    <em>${data.date} ${data.time}</em><br>
-    ${data.description}<br>
-    <img src="${data.imageUrl}" alt="Incident image" width="100" height="100">
-    <p>Submitted by: ${data.name}</p>
-  `);
-});
+// Function to fetch incidents and create markers
+async function fetchIncidents() {
+  try {
+    const response = await fetch('/get-incidents');
+    const data = await response.json();
+
+    // Loop through the fetched incidents and create markers
+    data.forEach(incident => {
+      // Create a marker for each incident
+      const marker = L.marker(incident.location, { icon: icons[incident.type] }).addTo(map);
+
+      // Generate the popup content
+      const imageUrl = `/get-image/${incident.imageId.$oid}`;  // Assuming you store imageId as an ObjectId in MongoDB
+
+      marker.bindPopup(`
+        <strong>${incident.type}</strong><br>
+        <em>${incident.date} ${incident.time}</em><br>
+        ${incident.description}<br>
+        <img src="${imageUrl}" alt="Incident image" width="100" height="100"><br>
+        <p>Submitted by: ${incident.name}</p>
+      `);
+    });
+  } catch (error) {
+    console.error('Error fetching incidents:', error);
+  }
+}
 
 // Function to find the closest predefined address
 function getPredefinedAddress(lat, lng) {
@@ -869,113 +881,3 @@ body {
 
 
 
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Incident Report</title>
-  <style>
-    /* Styling for the page */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f4f4f9;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    .incident {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .incident h3 {
-      margin-top: 0;
-    }
-    .incident p {
-      font-size: 16px;
-      line-height: 1.5;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    .incident-info {
-      margin-bottom: 10px;
-    }
-    .incident-info strong {
-      color: #333;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <h1>Incident Report</h1>
-
-    <div id="incidentsList">
-      <!-- Incident data will be dynamically added here -->
-    </div>
-  </div>
-
-  <script>
-    // Function to fetch incidents from the backend
-    async function fetchIncidents() {
-      try {
-        const response = await fetch('/get-incidents');
-        const data = await response.json();
-
-        // Select the container where the incidents will be displayed
-        const incidentsList = document.getElementById('incidentsList');
-
-        // Clear previous data
-        incidentsList.innerHTML = '';
-
-        // Loop through the incidents and add them to the list
-        data.forEach(incident => {
-          const incidentElement = document.createElement('div');
-          incidentElement.classList.add('incident');
-
-          // If imageId exists, include it in the display
-          const imageUrl = `/get-image/${incident.imageId.$oid}`;
-
-          incidentElement.innerHTML = `
-            <h3>${incident.name}</h3>
-            <p class="incident-info"><strong>Type:</strong> ${incident.type}</p>
-            <p class="incident-info"><strong>Description:</strong> ${incident.description}</p>
-            <p class="incident-info"><strong>Location:</strong> [${incident.location.join(', ')}]</p>
-            <p class="incident-info"><strong>Submitted by:</strong> ${incident.name}</p>
-            <p class="incident-info"><strong>Date:</strong> ${incident.date} | <strong>Time:</strong> ${incident.time}</p>
-            ${incident.imageId ? `<img src="${imageUrl}" alt="Image related to the incident">` : ''}
-          `;
-
-          incidentsList.appendChild(incidentElement);
-        });
-      } catch (error) {
-        console.error('Error fetching incidents:', error);
-      }
-    }
-
-    // Call fetchIncidents when the page loads
-    window.onload = fetchIncidents;
-  </script>
-
-</body>
-</html>
