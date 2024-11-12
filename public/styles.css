@@ -88,7 +88,7 @@
         overflow-x: scroll;
         height: auto;
         z-index: 2;
-        border-radius: 12px;
+        border-radius: 22px;
         background-color: rgb(255, 253, 251);
       }
       
@@ -254,7 +254,7 @@ body, html {
     display: flex;
     justify-content: space-around;
     z-index: 2;
-    border-radius: 12px;
+    border-radius: 22px;
     background-color: rgb(255, 253, 251);
 }
 
@@ -280,7 +280,7 @@ body, html {
     .modal-content {
         background-color: white;
         padding: 20px;
-        border-radius: 8px;
+        border-radius: 20px;
         max-width: 400px;
         width: 10%;
         left: 50%;
