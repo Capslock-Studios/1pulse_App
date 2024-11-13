@@ -471,6 +471,16 @@ const sampleData = [
       location: [-26.2041, 28.0473],
       imageUrl: 'images/24.jpg',
     },
+    {
+        type: 'Good Deeds',
+        name: 'Mrs Bah',
+        description: '1Pulse Meeting Spot, Maboneng',
+        date: '2024-10-09',
+        time: '14:30',
+        location: [-26.203634, 28.059003],
+        imageUrl: 'images/20.jpg',
+        number:'+27780215486',
+      },
     // Add more sample data here
   ];
 
@@ -489,7 +499,8 @@ sampleData.forEach(data => {
       
   `);
 });
-
+ 
+      
 // Function to find the closest predefined address
 function getPredefinedAddress(lat, lng) {
   const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
