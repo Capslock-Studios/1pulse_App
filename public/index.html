@@ -436,53 +436,62 @@ window.onload = function() {
       maxZoom: 18,                 // Set max zoom to the closest level
       minZoom: 1                   // Optional: Set minimum zoom level
     });
+// Use CartoDB Positron tiles for a light base map
+L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://carto.com">CARTO</a>',
+  maxZoom: 20
+}).addTo(map);
 
- // Use CartoDB Positron tiles for a light base map
- L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://carto.com">CARTO</a>',
-      maxZoom: 20
-    }).addTo(map);
 // Define icons for each incident type
 const icons = {
-    'Good Deeds': L.icon({ iconUrl: 'images/good deed icon.png', iconSize: [30, 30] }),
-    'Health': L.icon({ iconUrl: 'health.png', iconSize: [30, 30] }),
-    'Property Damage': L.icon({ iconUrl: 'property-damage.png', iconSize: [30, 30] }),
-    'Violent Crime': L.icon({ iconUrl: 'violent-crime.png', iconSize: [30, 30] }),
-    'Looting': L.icon({ iconUrl: 'looting.png', iconSize: [30, 30] }),
-    'Xenophobia': L.icon({ iconUrl: 'xenophobia.png', iconSize: [30, 30] }),
-  };
+  'Good Deeds': L.icon({ iconUrl: 'images/good deed icon.png', iconSize: [30, 30] }),
+  'Health': L.icon({ iconUrl: 'images/health.png', iconSize: [30, 30] }),
+  'Property Damage': L.icon({ iconUrl: 'images/property.png', iconSize: [30, 30] }),
+  'Violent Crime': L.icon({ iconUrl: 'images/violent-crime.png', iconSize: [30, 30] }),
+  'Looting': L.icon({ iconUrl: 'images/looting.png', iconSize: [30, 30] }),
+  'Xenophobia': L.icon({ iconUrl: 'images/xenophobia.png', iconSize: [30, 30] })
+};
 
 // Predefined addresses for specific latitude and longitude points
 const addressLookup = {
   "-26.2041,28.0473": "Johannesburg City Center, South Africa",
   "-26.1952,28.0342": "Braamfontein, Johannesburg, South Africa",
-  "-26.2023,28.0436": "Newtown, Johannesburg, South Africa",
-  // Add more predefined addresses here as needed
+  "-26.2023,28.0436": "Newtown, Johannesburg, South Africa"
 };
 
 // Sample data for incidents
 const sampleData = [
-    {
-      type: 'Good Deeds',
-      name: 'Siya Percy',
-      description: 'The First spot for a wall of fame',
-      date: '2024-11-11',
-      time: '14:30',
-      location: [-26.2041, 28.0473],
-      imageUrl: 'images/24.jpg',
-    },
-    {
-        type: 'Good Deeds',
-        name: 'Mrs Bah',
-        description: '1Pulse Meeting Spot, Maboneng',
-        date: '2024-10-09',
-        time: '14:30',
-        location: [-26.203634, 28.059003],
-        imageUrl: 'images/20.jpg',
-        number:'+27780215486',
-      },
-    // Add more sample data here
-  ];
+  {
+    type: 'Good Deeds',
+    name: 'Siya Percy',
+    description: 'The First spot for a wall of fame',
+    date: '2024-11-11',
+    time: '14:30',
+    location: [-26.2041, 28.0473],
+    imageUrl: 'images/24.jpg',
+    number: '+27685090669'
+  },
+  {
+    type: 'Good Deeds',
+    name: 'Mrs Bah',
+    description: '1Pulse Meeting Spot, Maboneng',
+    date: '2024-10-09',
+    time: '14:30',
+    location: [-26.203634, 28.059003],
+    imageUrl: 'images/20.jpg',
+    number: '+27780215486'
+  }, 
+  {
+    type: 'Property Damage',
+    name: 'Mrs S.H Gumede',
+    description: 'Municipal property damage reported.',
+    date: '2024-10-09',
+    time: '14:30',
+    location: [-26.207052, 28.046833],
+    imageUrl: 'images/damage.jpeg',
+    number: '+27780215486'
+  }
+];
 
 // Function to create a marker for each sample incident
 sampleData.forEach(data => {
@@ -491,15 +500,15 @@ sampleData.forEach(data => {
     <strong>${data.type}</strong><br>
     <em>${data.date} ${data.time}</em><br>
     ${data.description}<br>
-    <img src="${data.imageUrl}" alt="Incident image" width="250" height="150">
+    <img src="${data.imageUrl}" alt="Incident image" width="250" height="150"><br>
     <p>Submitted by: ${data.name}</p>
-     <p >Learn More: <a href="https://wa.me/+27685090669?text=May%20I%20enquire%20about%20this%20range" class="contact-icon" style="font-size: 11px;" target="_blank">
+    <p>Learn More: <a href="https://wa.me/${data.number}?text=May%20I%20enquire%20about%20this%20range" 
+      class="contact-icon" style="font-size: 11px;" target="_blank">
       <i class="fab fa-whatsapp"></i> WhatsApp
     </a></p>
-      
   `);
 });
- 
+
       
 // Function to find the closest predefined address
 function getPredefinedAddress(lat, lng) {
