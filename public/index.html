@@ -342,6 +342,110 @@ window.onload = function() {
           font-weight: bold;
           cursor: pointer;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+      .card {
+        width: 300px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: scale(1.05);
+      }
+      .card-header {
+        padding: 15px;
+        background-color: #008080;
+        color: #fff;
+      }
+      .card-header .type {
+        font-weight: bold;
+      }
+      .card-header .timestamp, 
+      .card-header .author {
+        display: block;
+        font-size: 0.85rem;
+      }
+      .card-content {
+        padding: 15px;
+      }
+      .card-content .caption {
+        font-size: 1rem;
+        margin-bottom: 3px;
+      }
+      .card-content .media img {
+        width: 100%;
+        border-radius: 5px;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: #f9f9f9;
+      }
+      .social-links {
+        display: flex;
+        gap: 10px;
+      }
+      .social-icon {
+        font-size: 1rem;
+        color: #008080;
+        text-decoration: none;
+        padding: 5px;
+      }
+      .social-icon:hover {
+        color: #005555;
+      }
+      .contact {
+        font-size: 0.85rem;
+        color: #555;
+      }
+      .rating {
+        font-size: 0.85rem;
+        color: #ffcc00;
+      }
       </style>
     
     <!-- Header with Logo -->
@@ -469,49 +573,70 @@ const addressLookup = {
 const sampleData = [
   {
     type: 'Good Deeds',
-    name: 'Siya Percy',
-    description: 'The First spot for a wall of fame',
+    author: "Siya Percy",
+    caption: "Making an impact, one good deed at a time! The First spot for a wall of fame",
+    updated: "20 min ago",
     date: '2024-11-11',
     time: '14:30',
     location: [-26.2041, 28.0473],
     imageUrl: 'images/24.jpg',
-    number: '+27685090669'
+    number: '+27685090669',
+    rating: "★★★★☆",
+    socials: ["tk", "fb", "ig", "x", "w"]
   },
   {
     type: 'Good Deeds',
-    name: 'Mrs Bah',
-    description: '1Pulse Meeting Spot, Maboneng',
+    author: 'Mrs Bah',
+    caption: '1Pulse Meeting Spot, Maboneng',
+    updated: "20 min ago",
     date: '2024-10-09',
     time: '14:30',
     location: [-26.203634, 28.059003],
     imageUrl: 'images/20.jpg',
-    number: '+27780215486'
+    number: '+27780215486',
+    rating: "★★★★☆",
+    socials: ["tk", "fb", "ig", "x", "w"]
   }, 
   {
-    type: 'Property Damage',
-    name: 'Mrs S.H Gumede',
-    description: 'Municipal property damage reported.',
-    date: '2024-10-09',
-    time: '14:30',
-    location: [-26.207052, 28.046833],
-    imageUrl: 'images/damage.jpeg',
-    number: '+27780215486'
-  }
+        type: 'Property Damage',
+        updated: "1 hour ago",
+        date: '2024-10-09',
+        time: '14:30',
+        author: "Mrs S.H Gumede",
+        caption: "Municipal property damage reported.",
+        imageUrl: "images/damage.jpeg",
+        location: [-26.207052, 28.046833],
+        number: '+27780215486',
+        rating: "★★★★★",
+        socials: ["fb", "ig", "x"]
+      }
 ];
 
 // Function to create a marker for each sample incident
 sampleData.forEach(data => {
   const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
   marker.bindPopup(`
-    <strong>${data.type}</strong><br>
-    <em>${data.date} ${data.time}</em><br>
-    ${data.description}<br>
-    <img src="${data.imageUrl}" alt="Incident image" width="250" height="150"><br>
-    <p>Submitted by: ${data.name}</p>
+  <div class="card">
+          <div class="card-header">
+          <span class="type">${data.type}</span>
+        </div>
+   <span class="timestamp">Updated ${data.updated}</span>(<em>${data.date} ${data.time}</em>)
+    <div class="card-content">
+          <p class="caption">"${data.caption}"</p>
+          <div class="media">
+            <img src="${data.imageUrl}" alt="${data.type} Image">
+          </div>
+        </div>
+         <span class="author">Posted by: ${data.author}</span>
+    <div class="rating">
+            <span>Rating: ${data.rating}</span>
+          </div>
+          
     <p>Learn More: <a href="https://wa.me/${data.number}?text=May%20I%20enquire%20about%20this%20range" 
       class="contact-icon" style="font-size: 11px;" target="_blank">
-      <i class="fab fa-whatsapp"></i> WhatsApp
-    </a></p>
+      <i class="fab fa-whatsapp"></i> </a></p>
+
+      
   `);
 });
 
