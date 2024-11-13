@@ -356,26 +356,26 @@ window.onload = function() {
       <!-- Generating buttons with JavaScript for simplicity -->
       <script>
         const companies = [
-          { name: 'Errand Camel', logo: 'https://gjnw.online/images/errand%20camel%20logo.png' },
-          { name: 'Africa City', logo: 'https://gjnw.online/images/Africa%20City.png'},
-          { name: 'haibo', logo: 'https://gjnw.online/images/haibo%20logo.png'},
-          { name: 'boniZulu', logo: 'https://gjnw.online/images/bonizluu-fav.png'},
-          { name: 'Tae-Trax', logo: 'https://gjnw.online/images/Tae-Trax-Logo.png'},
-          { name: 'Leratong', logo: 'https://gjnw.online/images/leratong.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png'},
-          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png' }
+          { name: 'Errand Camel', logo: 'https://gjnw.online/images/errand%20camel%20logo.png',url:''},
+          { name: 'Africa City', logo: 'https://gjnw.online/images/Africa%20City.png',url:''},
+          { name: 'haibo', logo: 'https://gjnw.online/images/haibo%20logo.png',url:''},
+          { name: 'boniZulu', logo: 'https://gjnw.online/images/bonizluu-fav.png',url:''},
+          { name: 'Tae-Trax', logo: 'images/Tae-Trax-Logo.png', url:'https://tae-trax.netlify.app/'},
+          { name: 'Leratong', logo: 'https://gjnw.online/images/leratong.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''},
+          { name: 'Ur Company', logo: 'https://gjnw.online/images/impact%20logo.png',url:''}
         ];
     
         companies.forEach((company, index) => {
@@ -418,7 +418,7 @@ window.onload = function() {
                 <p> ${company.name} Has signed up to participate in the Safer Festive Seasons initiative.
                   Join ${company.name} this festive season and #MakeYourImpact!</p>
                   <a style="background: orange; color: white; border-radius:22px; text-decoration:none;
-                   margin:12px;  padding: 10px;" href="https://1pulse.online">Participate</a>
+                   margin:12px;  padding: 10px;" href="${company.url}">Participate</a>
               </div>
             </div>
           `);
