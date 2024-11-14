@@ -30,7 +30,7 @@
     width: 50px; /* Adjust as needed */
     height: 50px; /* Adjust as needed */
     border-radius: 50%;
-    object-fit: cover;
+    object-fit:contain;
     padding: 1px;
 }
 

@@ -35,11 +35,6 @@
 </script>
 
   <script>
-
-
-
-
-
     // Function to show the modal with specific content
 function showModal(logoId) {
   const modal = document.getElementById('modal');
@@ -679,6 +674,7 @@ const sampleData = [
     time: '14:30',
     location: [-26.2041, 28.0473],
     imageUrl: 'images/24.jpg',
+    videoUrl: 'vids/tiktok.mp4', // Path to the video file,
     number: '+27685090669',
     rating: "★★★★☆",
     socials: ["tk", "fb", "ig", "x", "w"]
@@ -692,6 +688,7 @@ const sampleData = [
     time: '14:30',
     location: [-26.203634, 28.059003],
     imageUrl: 'images/20.jpg',
+    videoUrl: 'vids/tiktok.mp4', // Path to the video file,
     number: '+27780215486',
     rating: "★★★★☆",
     socials: ["tk", "fb", "ig", "x", "w"]
@@ -704,11 +701,46 @@ const sampleData = [
         author: "Mrs S.H Gumede",
         caption: "Municipal property damage reported.",
         imageUrl: "images/damage.jpeg",
+        videoUrl: "vid/tiktok.mp4", // Path to the video file,
         location: [-26.207052, 28.046833],
         number: '+27780215486',
         rating: "★★★★★",
-        socials: ["fb", "ig", "x"]
-      }
+        socials: ["fb", "ig", "x"],
+        latitude: -26.2041,
+        longitude: 28.0473
+      },
+      {
+        type: 'Property Damage',
+        updated: "1 hour ago",
+        date: '2024-11-14',
+        time: '14:30',
+        author: "Ms K Mbori",
+        caption: "It's very difficult to decide who to blame for the damaged street and pavement. Do we blame the mechenic who used metal tools that corroded the concrete or did he find it already damaged?",
+        imageUrl: "images/dirt.jpeg",
+        videoUrl: "vid/tiktok.mp4", // Path to the video file,
+        location: [-26.209030, 28.046144],
+        number: '+27780215486',
+        rating: "★★★★★",
+        socials: ["fb", "ig", "x"],
+        latitude: -26.2041,
+        longitude: 28.0473
+      },
+      {
+        type: 'Property Damage',
+        updated: "1 hour ago",
+        date: '2024-11-14',
+        time: '14:23',
+        author: "Tiny",
+        caption: "We always see Pikitup work aseble here in the mordnig, thinking at least today we'll a change but everyday same dirt, new picture.",
+        imageUrl: "images/ev.jpg",
+        videoUrl: "vid/tiktok.mp4", // Path to the video file,
+        location: [-26.208067, 28.045231],
+        number: '+27780215486',
+        rating: "★★★★★",
+        socials: ["fb", "ig", "x"],
+        latitude: -26.2041,
+        longitude: 28.0473
+      },
 ];
 
 // Function to create a marker for each sample incident
@@ -819,7 +851,61 @@ function submitForm(lat, lng, address) {
       }
     }
   </script>
-
+  <style>
+    /*Mute this for now: ---.card {
+      position: relative;
+      width: 300px;
+      height: 500px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: flex-end;
+      color: white;
+      background: #000;
+    }
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .overlay {
+      position: relative;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    }
+    .card-header {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .social-links {
+      display: flex;
+      gap: 5px;
+    }
+    .social-icon {
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      padding: 3px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }--*/
+  </style>
   <style>
 /* General Modal Styles */
 .modal {
@@ -1086,6 +1172,52 @@ body {
 }
 
   </style>
+
+<script>
+  // Function to create card HTML
+  function createCard(data) {
+    const card = document.createElement("div");
+    card.className = "card";
+    
+    card.innerHTML = `
+      <video class="background-video" autoplay loop muted playsinline>
+        <source src="${data.videoUrl}" type="video/mp4">
+      </video>
+      
+      <div class="overlay">
+        <div class="card-header">
+          <span class="type">${data.type}</span>
+          <span class="timestamp">Updated ${data.updated}</span>
+          <span class="author">Posted by: ${data.author}</span>
+        </div>
+        
+        <div class="card-content">
+          <p class="caption">"${data.caption}"</p>
+        </div>
+
+        <div class="card-footer">
+          <div class="social-links">
+            ${data.socials.map(social => `<a href="#" class="social-icon">${social}</a>`).join("")}
+          </div>
+          <div class="contact">
+            <span>Call: ${data.call}</span>
+          </div>
+          <div class="rating">
+            <span>Rating: ${data.rating}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return card;
+  }
+
+  // Add markers with popups
+  sampleData.forEach(data => {
+    const marker = L.marker([data.latitude, data.longitude]).addTo(map);
+    marker.bindPopup(createCard(data).outerHTML);
+  });
+</script>
 </body>
 </html>
 
