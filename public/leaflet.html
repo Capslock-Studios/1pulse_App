@@ -3,119 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaflet Map with Form Modal</title>
-  
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  
-  <!-- Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  
-  <!-- HubSpot Form Embed Code -->
-  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-
+  <title>Landing Page</title>
   <style>
-    /* Basic styling */
-    body, html {
-      height: 100%;
-      margin: 0;
+    /* Basic CSS Styling */
+    body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f5f5f5;
     }
-
-    /* Map styling */
-    #map {
-      height: 100vh;
-      width: 100%;
+    header {
+      background: #007bff;
+      color: #fff;
+      padding: 2em 0;
+      text-align: center;
     }
-    
-    /* Modal styling */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
     }
-
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 400px;
-      width: 100%;
+    .section {
+      padding: 4em 2em;
+      text-align: center;
     }
-
-    .modal-content h2 {
-      margin-top: 0;
+    .section h2 {
+      font-size: 2em;
+      margin-bottom: 1em;
     }
-
-    .close-button {
-      background: #333;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      font-size: 1em;
-      cursor: pointer;
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    .features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .feature {
+      flex: 1;
+      max-width: 300px;
+      margin: 1em;
+      background: #fff;
+      padding: 2em;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .cta {
+      background: #007bff;
+      color: #fff;
+      padding: 2em;
+    }
+    .cta a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      background: #0056b3;
+      padding: 1em 2em;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 1em;
     }
   </style>
 </head>
 <body>
 
-  <!-- Map Container -->
-  <div id="map"></div>
+<header>
+  <h1>Welcome to Our Product</h1>
+  <p>Learn more about our features and join us today!</p>
+</header>
 
-  <!-- Modal Overlay for the Form -->
-  <div class="modal-overlay" id="formModal">
-    <div class="modal-content">
-      <button class="close-button" onclick="closeModal()">X</button>
-      <h2>Fill Out This Form</h2>
-      <div id="form-container">Loading form...</div>
+<section class="section about">
+  <h2>About Us</h2>
+  <p>We are committed to providing the best service for our customers. Our product is designed to make your life easier and more productive.</p>
+</section>
+
+<section class="section features">
+  <h2>Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>Feature 1</h3>
+      <p>Our product is equipped with a variety of amazing features to simplify your work.</p>
+    </div>
+    <div class="feature">
+      <h3>Feature 2</h3>
+      <p>Easy to use, highly customizable, and responsive to all your needs.</p>
+    </div>
+    <div class="feature">
+      <h3>Feature 3</h3>
+      <p>Backed by excellent customer support to help you every step of the way.</p>
     </div>
   </div>
+</section>
 
+<section class="section cta">
+  <h2>Join Us Today</h2>
+  <p>Sign up and take advantage of all our premium features. Start your journey with us now.</p>
+  <a href="#form">Get Started</a>
+</section>
+
+<section id="form" class="section">
+  <h2>Contact Us</h2>
+  <p>Fill out the form below to get in touch!</p>
+  <!-- HubSpot Form Embed Script -->
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
   <script>
-    // Initialize the map and set view to a chosen geographical point and zoom level
-    var map = L.map('map').setView([40.730610, -73.935242], 12); // New York coordinates for example
-
-    // Add the OpenStreetMap tile layer (light design)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Function to open the modal with the form
-    function openModal() {
-      document.getElementById('formModal').style.display = 'flex';
-
-      // Load the HubSpot form if not already loaded
-      if (!document.getElementById('form-container').hasChildNodes()) {
-        hbspt.forms.create({
-          portalId: "48151889",
-          formId: "87564da2-bc2c-42c8-b349-7a68df8489c0",
-          target: "#form-container"
-        });
-      }
-    }
-
-    // Function to close the modal
-    function closeModal() {
-      document.getElementById('formModal').style.display = 'none';
-    }
-
-    // Add a click event listener to the map to open the form modal
-    map.on('click', function(e) {
-      openModal(); // Open the modal on map click
+    hbspt.forms.create({
+      portalId: "48151889",
+      formId: "87564da2-bc2c-42c8-b349-7a68df8489c0"
     });
   </script>
+</section>
 
 </body>
 </html>
