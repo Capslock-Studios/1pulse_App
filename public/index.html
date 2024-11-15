@@ -346,6 +346,7 @@ window.onload = function() {
           width: 80%;
           max-width: 500px;
           border-radius: 22px;
+          justify-content:center;
         }
         .close-btn {
           float: right;
@@ -522,13 +523,14 @@ window.onload = function() {
         companies.forEach((company, index) => {
           document.write(`
             <div id="modal${index + 1}" class="modal">
-              <div class="modal-content" style="padding: 10px;>
+              <div class="modal-content" >
                 <span class="close-btn" onclick="closeModal()">&times;</span>
                 <h2>Participation of ${company.name}</h2>
                 <p> ${company.name} Has signed up to participate in the Safer Festive Seasons initiative.
                   Join ${company.name} this festive season and #MakeYourImpact!</p>
                   <a style="background: orange; color: white; border-radius:22px; text-decoration:none;
-                   margin:12px;  padding: 10px;" href="${company.url}">Participate</a>
+                   margin:12px;  padding: 10px; display:flex; justify-content:center; width:120px;" href="${company.url}">Participate</a>
+                   <br>
               </div>
             </div>
           `);
@@ -920,11 +922,12 @@ function submitForm(lat, lng, address) {
   background-color: white;
   padding: 20px;
   border-radius: 22px;
-  max-width: 800px;
+  height: 250px;
   width: 100%;
   left: 21%;
   top: 72px;
   position: relative;
+  justify-content:center;
 }
 
 /* Mobile Adjustments */
