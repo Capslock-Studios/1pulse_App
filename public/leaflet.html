@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet Map with Form Modal</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+  <!-- HubSpot Form Embed Code -->
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+
+  <style>
+    /* Basic styling */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* Map styling */
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    
+    /* Modal styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close-button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      font-size: 1em;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Map Container -->
+  <div id="map"></div>
+
+  <!-- Modal Overlay for the Form -->
+  <div class="modal-overlay" id="formModal">
+    <div class="modal-content">
+      <button class="close-button" onclick="closeModal()">X</button>
+      <h2>Fill Out This Form</h2>
+      <div id="form-container">Loading form...</div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize the map and set view to a chosen geographical point and zoom level
+    var map = L.map('map').setView([40.730610, -73.935242], 12); // New York coordinates for example
+
+    // Add the OpenStreetMap tile layer (light design)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Function to open the modal with the form
+    function openModal() {
+      document.getElementById('formModal').style.display = 'flex';
+
+      // Load the HubSpot form if not already loaded
+      if (!document.getElementById('form-container').hasChildNodes()) {
+        hbspt.forms.create({
+          portalId: "48151889",
+          formId: "87564da2-bc2c-42c8-b349-7a68df8489c0",
+          target: "#form-container"
+        });
+      }
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById('formModal').style.display = 'none';
+    }
+
+    // Add a click event listener to the map to open the form modal
+    map.on('click', function(e) {
+      openModal(); // Open the modal on map click
+    });
+  </script>
+
+</body>
+</html>
