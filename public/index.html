@@ -379,11 +379,6 @@ window.onload = function() {
 
 
 
-        * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
       body {
         display: flex;
         align-items: center;
@@ -407,7 +402,7 @@ window.onload = function() {
       }
       .card-header {
         padding: 15px;
-        background-color: #008080;
+        background-color: #0b7fcc;
         color: #fff;
       }
       .card-header .type {
@@ -419,7 +414,7 @@ window.onload = function() {
         font-size: 0.85rem;
       }
       .card-content {
-        padding: 15px;
+        padding: 5px;
       }
       .card-content .caption {
         font-size: 1rem;
@@ -580,8 +575,9 @@ window.onload = function() {
       }
       .card-header {
         padding: 15px;
-        background-color: #008080;
+        background-color: #0b7fcc;
         color: #fff;
+        border-radius: 25px;
       }
       .card-header .type {
         font-weight: bold;
@@ -592,7 +588,7 @@ window.onload = function() {
         font-size: 0.85rem;
       }
       .card-content {
-        padding: 15px;
+        padding: 5px;
       }
       .card-content .caption {
         font-size: 1rem;
@@ -682,7 +678,7 @@ const sampleData = [
   {
     type: 'Good Deeds',
     author: 'Mrs Bah',
-    caption: '1Pulse Meeting Spot, Maboneng',
+    caption: '1Pulse Meeting Spot, Maboneng. the that proved the concept.',
     updated: "20 min ago",
     date: '2024-10-09',
     time: '14:30',
@@ -699,7 +695,7 @@ const sampleData = [
         date: '2024-10-09',
         time: '14:30',
         author: "Mrs S.H Gumede",
-        caption: "Municipal property damage reported.",
+        caption: "Municipal property damage reported. Between the hotel and the mechanic's garage someone has done enough damage in the streets that walking in this part of town feels unsafe even during the day.",
         imageUrl: "images/damage.jpeg",
         videoUrl: "vid/tiktok.mp4", // Path to the video file,
         location: [-26.207052, 28.046833],
@@ -715,7 +711,7 @@ const sampleData = [
         date: '2024-11-14',
         time: '14:30',
         author: "Ms K Mbori",
-        caption: "It's very difficult to decide who to blame for the damaged street and pavement. Do we blame the mechenic who used metal tools that corroded the concrete or did he find it already damaged?",
+        caption: "It's very difficult to decide who to blame for the damaged street and pavement. Do we blame the mechanic who used metal tools that corroded the concrete or did he find it already damaged?",
         imageUrl: "images/dirt.jpeg",
         videoUrl: "vid/tiktok.mp4", // Path to the video file,
         location: [-26.209030, 28.046144],
@@ -731,7 +727,7 @@ const sampleData = [
         date: '2024-11-14',
         time: '14:23',
         author: "Tiny",
-        caption: "We always see Pikitup work aseble here in the mordnig, thinking at least today we'll a change but everyday same dirt, new picture.",
+        caption: "We always see Pikitup worker assemble here in the morning, thinking at least today we'll see a change but everyday same dirt, new group picture.",
         imageUrl: "images/ev.jpg",
         videoUrl: "vid/tiktok.mp4", // Path to the video file,
         location: [-26.208067, 28.045231],
@@ -747,7 +743,6 @@ const sampleData = [
 sampleData.forEach(data => {
   const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
   marker.bindPopup(`
-  <div class="card">
           <div class="card-header">
           <span class="type">${data.type}</span>
         </div>
