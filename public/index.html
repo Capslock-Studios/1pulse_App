@@ -19,25 +19,26 @@
   <meta property="og:image" content="https://1pulse.online/" />
   </head>
 <body>
+  <style>
+    /* General modal styles */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: black;
+  }
+  
+  
+  
+  </style>
 <div id="map"></div>
-<style>
-  /* General modal styles */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
-  color: #aaa;
-  cursor: pointer;
-}
 
-.close-btn:hover {
-  color: black;
-}
-
-
-
-</style>
 <script>
   setInterval(function() {
     location.reload();
@@ -630,18 +631,40 @@ window.onload = function() {
       </style>
   </style>
   <script>
-    // Initialize the map
-    const map = L.map('map', {
-      center: [-26.2041, 28.0473], // Coordinates for Johannesburg as an example
-      zoom: 18,                    // Initial zoom level for close-up view
-      maxZoom: 18,                 // Set max zoom to the closest level
-      minZoom: 1                   // Optional: Set minimum zoom level
-    });
+    // Initialize the map with a fallback center
+const map = L.map('map', {
+  center: [-26.2041, 28.0473], // Fallback coordinates for Johannesburg
+  zoom: 18,                   // Initial zoom level for close-up view
+  maxZoom: 18,                // Set max zoom to the closest level
+  minZoom: 1                  // Optional: Set minimum zoom level
+});
+
 // Use CartoDB Positron tiles for a light base map
 L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://carto.com">CARTO</a>',
   maxZoom: 20
 }).addTo(map);
+
+// Use the Geolocation API to center the map on the user's location
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+
+      // Set the map view to the user's location
+      map.setView([userLat, userLng], 18); // Adjust zoom level as needed
+    },
+    (error) => {
+      console.error('Geolocation error:', error.message);
+      // The map will use the fallback center by default
+    }
+  );
+} else {
+  console.error('Geolocation is not supported by this browser.');
+  // The map will use the fallback center by default
+}
+
 
 // Define icons for each incident type
 const icons = {
