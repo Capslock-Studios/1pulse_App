@@ -682,7 +682,7 @@ window.onload = function() {
           if (!userMarker) {
             userMarker = L.marker([userLat, userLng], { icon: youAreHereIcon })
               .addTo(map)
-              .bindPopup(`<b>Your location is:</b><br>${address},whats going on?`)
+              .bindPopup(`<b>Your location is:</b><br>${address},<b>whats going on</b>?`)
               .openPopup(); // Automatically open popup
           } else {
             // Update the marker's position and popup content
