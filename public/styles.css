@@ -32,6 +32,7 @@
     border-radius: 50%;
     object-fit:contain;
     padding: 1px;
+    justify-content:center;
 }
 
 /* Add a draggable cursor */
