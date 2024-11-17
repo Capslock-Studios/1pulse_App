@@ -2,51 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing Page</title>
+  <title>Pulse, GJNO, Errand Camel, and Africa City - Empowering Communities</title>
+  <meta name="description" content="1Pulse - Empowering Communities by Enhancing Safety, Reducing Pollution, and Fostering Inclusivity with GJNW, Errand Camel, and Africa City.">
+  <meta name="keywords" content="Pulse, GJNO, Errand Camel, Africa City, Greater Johannesburg Neighborhood Oversight, crime prevention, pollution reduction, community programs, tech innovation, inclusivity" />
+<meta name="author" content="Siya Percy" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1Pulse.online | A community safety portal brougth to you by Greate Johannesburg Neighborhood Oversight</title>
+  <link rel="icon" href="images/ipulse-logo.png" type="image/x-icon"> <!-- Favicon -->
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
+
+  <meta property="og:title" content="Pulse, GJNO, Errand Camel, and Africa City" />
+  <meta property="og:description" content="Empowering communities with crime prevention, pollution reduction, tech innovation, and inclusivity programs in Johannesburg." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://1pulse.online/" />
+  <meta property="og:image" content="https://1pulse.online/" />
+  </head>
 <body>
-  <div id="map"></div>
-<style>
-  /* General modal styles */
+  <style>
+    /* General modal styles */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: black;
+  }
+  
+  
+  
+  </style>
+<div id="map"></div>
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
-  color: #aaa;
-  cursor: pointer;
-}
+<script>
+//  setInterval(function() {
+  //  location.reload();
+  //}, 30000); // 30000 milliseconds = 30 seconds
+</script>
 
-.close-btn:hover {
-  color: black;
-}
-
-/* Style the logo items */
-#logo-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.logo img {
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-}
-
-
-</style>
   <script>
-
-
-
-
-
     // Function to show the modal with specific content
 function showModal(logoId) {
   const modal = document.getElementById('modal');
@@ -74,6 +73,10 @@ function showModal(logoId) {
     case 5:
       title.textContent = "Pulse";
       body.textContent = "Pulse is an initiative dedicated to monitoring street activities, overseeing public services, and tracking community-driven efforts for safer environments.";
+      break;
+    case 6:
+      title.textContent = "Tae-Trax";
+      body.textContent = "Tae Trax is an initiative dedicated to monitoring street activities, overseeing public services, and tracking community-driven efforts for safer environments.";
       break;
     default:
       title.textContent = "";
@@ -120,36 +123,30 @@ function showModal(logoId) {
       title.textContent = "BoniZulu";
       body.textContent = "BoniZulu is a fashion brand committed to uniting designers for fabric sourcing and promoting the elderly through crocheting programs.";
       carouselImages.innerHTML = `
-        <img src="images/bonizulu-hero1.jpg" alt="BoniZulu Hero Image 1">
-        <img src="images/bonizulu-hero2.jpg" alt="BoniZulu Hero Image 2">
-        <img src="images/bonizulu-hero3.jpg" alt="BoniZulu Hero Image 3">
       `;
       break;
     case 3:
       title.textContent = "Hillbrow";
       body.textContent = "Hillbrow is a diverse and vibrant neighborhood in Johannesburg, known for its rich culture and mix of residential and commercial spaces.";
       carouselImages.innerHTML = `
-        <img src="images/hillbrow-hero1.jpg" alt="Hillbrow Hero Image 1">
-        <img src="images/hillbrow-hero2.jpg" alt="Hillbrow Hero Image 2">
-        <img src="images/hillbrow-hero3.jpg" alt="Hillbrow Hero Image 3">
       `;
       break;
     case 4:
       title.textContent = "CPF - Community Policing Forum";
       body.textContent = "CPF works closely with SAPS to improve safety and security in communities, promoting cooperation between police and residents.";
       carouselImages.innerHTML = `
-        <img src="images/cpf-hero1.jpg" alt="CPF Hero Image 1">
-        <img src="images/cpf-hero2.jpg" alt="CPF Hero Image 2">
-        <img src="images/cpf-hero3.jpg" alt="CPF Hero Image 3">
       `;
       break;
     case 5:
       title.textContent = "Pulse";
       body.textContent = "Pulse is an initiative dedicated to monitoring street activities, overseeing public services, and tracking community-driven efforts for safer environments.";
       carouselImages.innerHTML = `
-        <img src="images/pulse-hero1.jpg" alt="Pulse Hero Image 1">
-        <img src="images/pulse-hero2.jpg" alt="Pulse Hero Image 2">
-        <img src="images/pulse-hero3.jpg" alt="Pulse Hero Image 3">
+      `;
+      break;
+    case 6:
+      title.textContent = "Tae-Trax";
+      body.textContent = "Tae-Trax by Siya Percy is an initiative dedicated to monitoring street activities, overseeing public services, and tracking community-driven efforts for safer environments.";
+      carouselImages.innerHTML = `
       `;
       break;
     default:
@@ -202,73 +199,91 @@ window.onload = function() {
       <div class="logo" onclick="showModal(5)">
         <img src="images/pulse.jpeg" alt="Logo 5">
       </div>
+      <div class="logo" onclick="showModal(6)">
+        <img src="images/Tae-Trax-Logo.png" alt="Logo 6">
+      </div>
     </div>
     <button class="nav-btn" onclick="slideRight()">&#9654;</button>
   </div>
   
  <!-- Modal Structure -->
 <div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    
-    <!-- Modal Header -->
-    <h2 id="modal-title"></h2>
-    
-    <!-- Modal Description -->
-    <p id="modal-body"></p>
+  <!-- Include Font Awesome for social and contact icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  .social-media, .contact-info {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
 
-    <!-- Hero Image Carousel -->
-    <div id="carousel" class="carousel">
-      <div class="carousel-images">
-        <img src="images/hero1.jpg" alt="Hero Image 1">
-        <img src="images/hero2.jpg" alt="Hero Image 2">
-        <img src="images/hero3.jpg" alt="Hero Image 3">
-      </div>
-      <button class="carousel-prev" onclick="moveCarousel(-1)">&#9664;</button>
-      <button class="carousel-next" onclick="moveCarousel(1)">&#9654;</button>
-    </div>
+.social-icon, .contact-icon {
+  font-size: 24px;
+  color: #333;
+  text-decoration: none;
+}
 
-    <!-- Bloc Style Image with Description -->
-    <div class="bloc-image">
-      <img src="images/20.jpg" alt="Bloc Style Image">
-      <p class="bloc-description">This is the description for the bloc-style image.</p>
-    </div>
+.social-icon:hover, .contact-icon:hover {
+  color: #007bff; /* Adjust for hover color if desired */
+}
+</style>
+<div class="modal-content2">
+  <span class="close-btn" onclick="closeModal()">&times;</span>
+  
+  <!-- Modal Header -->
+  <h2 id="modal-title"></h2>
+  
+  <!-- Modal Description -->
+  <p id="modal-body"></p>
 
-    <!-- Social Media Icons -->
-    <div class="social-media">
-      <a href="#" class="social-icon" target="_blank">
-        <img src="images/facebook-icon.svg" alt="Facebook">
-      </a>
-      <a href="#" class="social-icon" target="_blank">
-        <img src="images/twitter-icon.svg" alt="Twitter">
-      </a>
-      <a href="#" class="social-icon" target="_blank">
-        <img src="images/instagram-icon.svg" alt="Instagram">
-      </a>
-      <a href="#" class="social-icon" target="_blank">
-        <img src="images/linkedin-icon.svg" alt="LinkedIn">
-      </a>
-      <a href="#" class="social-icon" target="_blank">
-        <img src="images/youtube-icon.svg" alt="YouTube">
-      </a>
-      <a href="#" class="social-icon" target="_blank">
-        <img src="images/tiktok-icon.svg" alt="TikTok">
-      </a>
+  <!-- Hero Image Carousel -->
+  <div id="carousel" class="carousel">
+    <div class="carousel-images">
+      <img src="images/SAPS-Driver.webp" alt="Hero Image 1">
+      <img src="images/SAPS-Police-officers.jpeg" alt="Hero Image 2">
+      <img src="images/Saps Drill.jpeg" alt="Hero Image 3">
     </div>
+  </div>
 
-    <!-- Contact Info -->
-    <div class="contact-info">
-      <a href="tel:+1234567890" class="contact-icon">
-        <img src="images/phone-icon.svg" alt="Call"> Call
-      </a>
-      <a href="https://wa.me/1234567890" class="contact-icon">
-        <img src="images/whatsapp-icon.svg" alt="WhatsApp"> WhatsApp
-      </a>
-    </div>
+  <!-- Bloc Style Image with Description -->
+  <div class="bloc-image">
+    <img src="images/Safer Festive Season hero.jpg" alt="Bloc Style Image">
+   </div>
+
+  <!-- Social Media Icons -->
+  <div class="social-media">
+    <a href="https://www.facebook.com/profile.php?id=61561153654022" class="social-icon" target="_blank">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://x.com/?lang=en" class="social-icon" target="_blank">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="https://www.instagram.com/haibo.community/" class="social-icon" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://za.linkedin.com/" class="social-icon" target="_blank">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://www.youtube.com/" class="social-icon" target="_blank">
+      <i class="fab fa-youtube"></i>
+    </a>
+    <a href="https://www.tiktok.com/@1pulse.online" class="social-icon" target="_blank">
+      <i class="fab fa-tiktok"></i>
+    </a>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="contact-info">
+    <a href="tel:+27685090669" class="contact-icon">
+      <i class="fas fa-phone-alt"></i> Call
+    </a>
+    <a href="https://wa.me/+27685090669?text=May%20I%20enquire%20about%20this%20range" class="contact-icon" target="_blank">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
   </div>
 </div>
 
-  
+</div>
   <!-- Modal Structure -->
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -278,7 +293,6 @@ window.onload = function() {
     </div>
   </div>
   
-
   <!-- Modal Button with Image -->
   <button id="modal-button" onclick="toggleWidgets()">
     <img src="images/ipulse-logo.png" alt="1Pulse" style="width: 50px; height: 50px; vertical-align: middle;">
@@ -287,62 +301,565 @@ window.onload = function() {
 
   <!-- Widgets -->
   <div id="widget-container">
-    <div class="column">
-      <div class="box">
-        <h5>Pandemic Case</h5>
-        <select>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
-      </div>
-      <div class="box">
-        <h5>Gov Response</h5>
-        <select>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
-      </div>
+ 
+            <style>
+        /* Basic Reset and Styles */
+        header { text-align: center; padding: 20px; background: #333; color: #fff; border-radius: 22px; }
+        h1, h2 { margin: 0; }
+    
+        /* Round Image Buttons */
+        .button-container { text-align: center; padding: 20px; }
+        .round-button-container {
+          display: inline-block;
+          text-align: center;
+          margin: 10px;
+        }
+        .round-button {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          background-size: cover;
+          display: inline-block;
+          cursor: pointer;
+        }
+        .company-name { margin-top: 5px; font-size: 14px; color: #333; }
+    
+        /* Modal Styles */
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+          background-color: #f00000;
+          margin: 10% auto;
+          padding: 20px;
+          width: 80%;
+          max-width: 500px;
+          border-radius: 22px;
+          justify-content: center;
+        }
+        .close-btn {
+          float: right;
+          font-size: 24px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+      .card {
+        width: 300px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: scale(1.05);
+      }
+      .card-header {
+        padding: 15px;
+        background-color: #0b7fcc;
+        color: #fff;
+      }
+      .card-header .type {
+        font-weight: bold;
+      }
+      .card-header .timestamp, 
+      .card-header .author {
+        display: block;
+        font-size: 0.85rem;
+      }
+      .card-content {
+        padding: 5px;
+      }
+      .card-content .caption {
+        font-size: 1rem;
+        margin-bottom: 3px;
+      }
+      .card-content .media img {
+        width: 100%;
+        border-radius: 5px;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: #f9f9f9;
+      }
+      .social-links {
+        display: flex;
+        gap: 10px;
+      }
+      .social-icon {
+        font-size: 1rem;
+        color: #008080;
+        text-decoration: none;
+        padding: 5px;
+      }
+      .social-icon:hover {
+        color: #005555;
+      }
+      .contact {
+        font-size: 0.85rem;
+        color: #555;
+      }
+      .rating {
+        font-size: 0.85rem;
+        color: #ffcc00;
+      }
+      </style>
+    
+    <!-- Header with Logo -->
+    <header>
+      <img src="images/gjno logo.png" alt="GJNO Logo" class="logo">
+      <h1>Greater Johannesburg Neighborhood Oversight (GJNO)</h1>
+      <p>Building a Safer, Cleaner, and Accountable Johannesburg</p>
+    </header>
+    
+    <!-- 20 Round Image Buttons with Ur Company Names -->
+    <div class="button-container">
+      <!-- Generating buttons with JavaScript for simplicity -->
+      <script>
+        const companies = [
+          { name: 'Errand Camel', logo: 'https://1pulse.online/images/errand%20camel%20logo.png',url:'https://gjnw.online'},
+          { name: 'Africa City', logo: 'https://1pulse.online/images/Africa%20City.png',url:'https://africacity.online/'},
+          { name: 'Leratong C Hub', logo: 'https://1pulse.online/images/leratong.png',url:'https://www.instagram.com/leratongcommunity/'},
+          { name: 'Nsikis', logo: 'https://1pulse.online/images/nkisis-logo.png',url:'https://www.facebook.com/NikisJazz/'},
+          { name: 'haibo', logo: 'https://1pulse.online/images/haibo%20logo.png',url:'https://gjnw.online'},
+          { name: 'boniZulu', logo: 'https://1pulse.online/images/bonizluu-fav.png',url:'https://bonizulu.co.za/'},
+          { name: 'Tae-Trax', logo: 'images/Tae-Trax-Logo.png', url:'https://tae-trax.netlify.app/'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'},
+          { name: 'Ur Company', logo: 'https://1pulse.online/images/impact%20logo.png',url:'https://gjnw.online'}
+        ];
+    
+        companies.forEach((company, index) => {
+          document.write(`
+            <div class="round-button-container">
+              <div class="round-button" onclick="openModal('modal${index + 1}')" style="background-image: url('${company.logo}');"></div>
+              <div class="company-name">${company.name}</div>
+            </div>
+          `);
+        });
+      </script>
     </div>
-    <div class="column">
-      <div class="box">
-        <h5>Business Response</h5>
-        <select>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
-      </div>
-      <div class="box">
-        <h5>Citizen Response</h5>
-        <select>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
-      </div>
+    
+    <!-- 20 Modals -->
+    <script>
+      // Function to open a modal by id
+      function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+      }
+    
+      // Function to close all modals
+      function closeModal() {
+        let modals = document.getElementsByClassName("modal");
+        for (let modal of modals) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+    
+    <!-- Modal Content -->
+    <div id="modals">
+      <script>
+        // Generating modal content dynamically
+        companies.forEach((company, index) => {
+          document.write(`
+            <div id="modal${index + 1}" class="modal">
+              <div class="modal-content" >
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2>Participation of ${company.name}</h2>
+                <p> ${company.name} Has signed up to participate in the Safer Festive Seasons initiative.
+                  Join ${company.name} this festive season and <span style="text-decoration: none; color:; font-weight: bold;">#MakeYourImpact!</span></p>
+                  <p>Learn more about <a style="text-decoration: none; color:green; font-weight: bold;" href="${company.url}">${company.name}</a></p>
+                  <br>
+                  <p>You can add you company logo to the list of participating companies.</p> <p> This means you get to grow with us!</p>
+                  <a style="background: orange; color: white; border-radius:22px; text-decoration:none;
+                   margin:12px;  padding: 10px; display:flex; justify-content:center; width:120px;" href="https://forms.gle/roQgdDUWJvBh6Q6A7">Participate</a>
+                    
+              
+              </div>
+            </div>
+          `);
+        });
+      </script>
     </div>
+    
+    </body>
+    
+
   </div>
+<style>/* Add these styles to your CSS file or in a <style> block */
 
+  </style>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+      .card {
+        width: 300px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: scale(1.05);
+      }
+      .card-header {
+        padding: 15px;
+        background-color: #0b7fcc;
+        color: #fff;
+        border-radius: 25px;
+      }
+      .card-header .type {
+        font-weight: bold;
+      }
+      .card-header .timestamp, 
+      .card-header .author {
+        display: block;
+        font-size: 0.85rem;
+      }
+      .card-content {
+        padding: 5px;
+      }
+      .card-content .caption {
+        font-size: 1rem;
+        margin-bottom: 3px;
+      }
+      .card-content .media img {
+        width: 100%;
+        border-radius: 5px;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: #f9f9f9;
+      }
+      .social-links {
+        display: flex;
+        gap: 10px;
+      }
+      .social-icon {
+        font-size: 1rem;
+        color: #008080;
+        text-decoration: none;
+        padding: 5px;
+      }
+      .social-icon:hover {
+        color: #005555;
+      }
+      .contact {
+        font-size: 0.85rem;
+        color: #555;
+      }
+      .rating {
+        font-size: 0.85rem;
+        color: #ffcc00;
+      }
+      </style>
+  </style>
   <script>
-    // Initialize the map
-    const map = L.map('map', {
-      center: [-26.2041, 28.0473], // Coordinates for Johannesburg as an example
-      zoom: 18,                    // Initial zoom level for close-up view
-      maxZoom: 18,                 // Set max zoom to the closest level
-      minZoom: 1                   // Optional: Set minimum zoom level
-    });
+  // Initialize the map with a fallback center
+  const map = L.map('map', {
+    center: [-26.2041, 28.0473], // Fallback coordinates for Johannesburg
+    zoom: 18,
+    maxZoom: 18,
+    minZoom: 1
+  });
 
-    // Add a tile layer (e.g., OpenStreetMap tiles)
-   
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(map);
+  // Use CartoDB Positron tiles for a light base map
+  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://carto.com">CARTO</a>',
+    maxZoom: 20
+  }).addTo(map);
 
+  // Custom "You Are Here" icon using a PNG
+  const youAreHereIcon = L.icon({
+    iconUrl: 'images/user-here.png', // Replace with your PNG URL
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40]
+  });
+
+  let userMarker = null; // Placeholder for the marker
+
+  // Function to fetch address using Nominatim reverse geocoding
+  async function fetchAddress(lat, lng) {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+      const data = await response.json();
+      return data.display_name || 'Address not found';
+    } catch (error) {
+      console.error('Error fetching address:', error);
+      return 'Unable to fetch address';
+    }
+  }
+
+  // Function to update user's location and address
+  async function updateLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const userLat = position.coords.latitude;
+          const userLng = position.coords.longitude;
+
+          // Fetch the address
+          const address = await fetchAddress(userLat, userLng);
+
+          // If the marker doesn't exist, create it
+          if (!userMarker) {
+            userMarker = L.marker([userLat, userLng], { icon: youAreHereIcon })
+              .addTo(map)
+              .bindPopup(`<b>Your location is:</b><br>${address},<b>whats going on</b>?`)
+              .openPopup(); // Automatically open popup
+          } else {
+            // Update the marker's position and popup content
+            userMarker.setLatLng([userLat, userLng]);
+            userMarker.setPopupContent(`<b>Your location is:</b><br>${address}, `).openPopup();
+          }
+
+          // Center the map on the user's location (optional)
+          map.setView([userLat, userLng], 18);
+        },
+        (error) => {
+          console.error('Geolocation error:', error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }
+
+  // Initial location fetch
+  updateLocation();
+
+  // Refresh location every 60 seconds
+  setInterval(updateLocation, 30000); // 60000 milliseconds = 60 seconds
+
+// Define icons for each incident type
+const icons = {
+  'Good Deeds': L.icon({ iconUrl: 'images/good deed icon.png', iconSize: [30, 30] }),
+  'Health': L.icon({ iconUrl: 'images/Health-location.png', iconSize: [30, 30] }),
+  'Property Damage': L.icon({ iconUrl: 'images/property.png', iconSize: [30, 30] }),
+  'Violent Crime': L.icon({ iconUrl: 'images/violent-crime.png', iconSize: [30, 30] }),
+  'Looting': L.icon({ iconUrl: 'images/looting.png', iconSize: [30, 30] }),
+  'Xenophobia': L.icon({ iconUrl: 'images/xenophobia.png', iconSize: [30, 30] })
+};
+
+// Predefined addresses for specific latitude and longitude points
+const addressLookup = {
+  "-26.2041,28.0473": "Johannesburg City Center, South Africa",
+  "-26.1952,28.0342": "Braamfontein, Johannesburg, South Africa",
+  "-26.2023,28.0436": "Newtown, Johannesburg, South Africa"
+};
+
+// Sample data for incidents
+const sampleData = [
+  {
+    type: 'Good Deeds',
+    author: "Siya Percy",
+    caption: "Making an impact, one good deed at a time! The First spot for a wall of fame",
+    updated: "Date and time:",
+    date: '2024-11-11',
+    time: '14:30',
+    location: [-26.2041, 28.0473],
+    imageUrl: 'images/24.jpg',
+    videoUrl: 'vids/tiktok.mp4', // Path to the video file,
+    number: '+27685090669',
+    rating: "★★★★☆",
+    socials: ["tk", "fb", "ig", "x", "w"]
+  },
+  {
+    type: 'Good Deeds',
+    author: 'Mrs Bah',
+    caption: '1Pulse Meeting Spot, Maboneng. the that proved the concept.',
+    updated: "Date and time:",
+    date: '2024-10-09',
+    time: '14:30',
+    location: [-26.203634, 28.059003],
+    imageUrl: 'images/20.jpg',
+    videoUrl: 'vids/tiktok.mp4', // Path to the video file,
+    number: '+27780215486',
+    rating: "★★★★☆",
+    socials: ["tk", "fb", "ig", "x", "w"]
+  }, 
+  {
+        type: 'Property Damage',
+        updated: "Date and time:",
+        date: '2024-10-09',
+        time: '14:30',
+        author: "Mrs S.H Gumede",
+        caption: "Municipal property damage reported. Between the hotel and the mechanic's garage someone has done enough damage in the streets that walking in this part of town feels unsafe even during the day.",
+        imageUrl: "images/damage.jpeg",
+        videoUrl: "vid/tiktok.mp4", // Path to the video file,
+        location: [-26.207052, 28.046833],
+        number: '+27780215486',
+        rating: "★★★★★",
+        socials: ["fb", "ig", "x"],
+        latitude: -26.2041,
+        longitude: 28.0473
+      },
+      {
+        type: 'Property Damage',
+        updated: "Date and time:",
+        date: '2024-11-14',
+        time: '14:30',
+        author: "Ms K Mbori",
+        caption: "It's very difficult to decide who to blame for the damaged street and pavement. Do we blame the mechanic who used metal tools that corroded the concrete or did he find it already damaged?",
+        imageUrl: "images/dirt.jpeg",
+        videoUrl: "vid/tiktok.mp4", // Path to the video file,
+        location: [-26.209030, 28.046144],
+        number: '+27780215486',
+        rating: "★★★★★",
+        socials: ["fb", "ig", "x"],
+        latitude: -26.2041,
+        longitude: 28.0473
+      },
+      {
+        type: 'Health',
+        updated: "Date and time:",
+        date: '2024-11-14',
+        time: '14:23',
+        author: "Tiny",
+        caption: "We always see Pikitup workers assemble here in the morning, thinking at least today we'll see a change but everyday same dirt, new group picture.",
+        imageUrl: "images/ev.jpg",
+        videoUrl: "vid/tiktok.mp4", // Path to the video file,
+        location: [-26.208067, 28.045231],
+        number: '+27780215486',
+        rating: "★★★★★",
+        socials: ["fb", "ig", "x"],
+        latitude: -26.2041,
+        longitude: 28.0473
+      },
+];
+
+// Function to create a marker for each sample incident
+sampleData.forEach(data => {
+  const marker = L.marker(data.location, { icon: icons[data.type] }).addTo(map);
+  marker.bindPopup(`
+          <div class="card-header">
+          <span class="type">${data.type}</span>
+        </div>
+   <span class="timestamp">Updated ${data.updated}</span>(<em>${data.date} ${data.time}</em>)
+    <div class="card-content">
+          <p class="caption">"${data.caption}"</p>
+          <div class="media">
+            <img src="${data.imageUrl}" alt="${data.type} Image">
+          </div>
+        </div>
+         <span class="author">Posted by: ${data.author}</span>
+    <div class="rating">
+            <span>Rating: ${data.rating}</span>
+          </div>
+          
+    <p>Learn More: <a href="https://wa.me/${data.number}?text=May%20I%20enquire%20about%20this%20range" 
+      class="contact-icon" style="font-size: 11px;" target="_blank">
+      <i class="fab fa-whatsapp"></i> </a></p>
+
+      
+  `);
+});
+
+      
+// Function to find the closest predefined address
+function getPredefinedAddress(lat, lng) {
+  const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+  return addressLookup[key] || "Unknown Address";
+}
+
+
+// Function to handle form submission and add new marker
+function submitForm(lat, lng, address) {
+  const type = document.getElementById('incidentType').value;
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const date = new Date().toLocaleDateString();
+  const time = new Date().toLocaleTimeString();
+  const icon = icons[type];
+
+  const marker = L.marker([lat, lng], { icon }).addTo(map);
+  marker.bindPopup(`
+    <strong>${type}</strong><br>
+    <em>${date} ${time}</em><br>
+    ${description}<br>
+    <p>Submitted by: ${name}</p>
+    <p>Location: ${address}</p>
+  `);
+  
+  map.closePopup(); // Close form popup after submission
+}
     // Toggle the display of the widget container
     function toggleWidgets() {
       const widgetContainer = document.getElementById("widget-container");
@@ -358,30 +875,24 @@ window.onload = function() {
       const { lat, lng } = e.latlng;
       const address = await reverseGeocode(lat, lng);
 
-      const popupContent = `
-        <div style="max-width: 300px; margin: auto;">
-          <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center;">
-            <h3 style="color: #333; text-align: center;">Make Alert</h3>
-            <label for="name" style="font-weight: bold; margin-top: 10px; width: 100%;">Full Name:</label>
-            <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-            <label for="email" style="font-weight: bold; margin-top: 10px; width: 100%;">Email:</label>
-            <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-            <label for="incidentType" style="font-weight: bold; margin-top: 10px; width: 100%;">Incident Type:</label>
-            <select id="incidentType" name="incidentType" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;">
-              <option value="" disabled selected>Select incident type</option>
-              <option value="Theft">Theft</option>
-              <option value="Vandalism">Vandalism</option>
-              <option value="Accident">Accident</option>
-              <option value="Other">Other</option>
-            </select>
-            <label for="description" style="font-weight: bold; margin-top: 10px; width: 100%;">Description:</label>
-            <textarea id="description" name="description" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px;"></textarea>
-            <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">Address:</label>
-            <input type="text" id="address" name="address" value="${address}" readonly style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-top: 5px; background-color: #f9f9f9;">
-            <button type="submit" style="margin-top: 15px; padding: 10px 20px; color: #fff; background-color: #007BFF; border: none; border-radius: 4px; cursor: pointer;">Submit Alert</button>
-          </form>
-        </div>
-      `;
+     const popupContent = `<div class="popup-content">
+      <form id="incident-form" onsubmit="submitIncidentForm(event, ${lat}, ${lng})" style="display: flex; flex-direction: column; align-items: center; max-width: 300px; margin: auto;">
+      
+      <!-- Title -->
+      <h3 style="color: #333; text-align: center; font-family: Arial, sans-serif;">Make An Alert</h3>
+      
+      <!-- Address Display with Copy Button -->
+      <label for="address" style="font-weight: bold; margin-top: 10px; width: 100%;">You have selected this Address: 
+        <span id="address-display" style="color: #007BFF; cursor: pointer;">${address}</span> please paste it on the Incidence Address.
+      </label>
+  
+      <!-- Google Form Embedded -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpmB_UKneDSW1IKvVx5wJE8licVtqeac_o3vDynUV7Y7tKUw/viewform?embedded=true" width="300" height="1126" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      
+    </form>
+    </div>
+`;
+
 
       L.popup({ className: "leaflet-popup" })
         .setLatLng([lat, lng])
@@ -401,7 +912,61 @@ window.onload = function() {
       }
     }
   </script>
-
+  <style>
+    /*Mute this for now: ---.card {
+      position: relative;
+      width: 300px;
+      height: 500px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: flex-end;
+      color: white;
+      background: #000;
+    }
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .overlay {
+      position: relative;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    }
+    .card-header {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .social-links {
+      display: flex;
+      gap: 5px;
+    }
+    .social-icon {
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      padding: 3px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }--*/
+  </style>
   <style>
 /* General Modal Styles */
 .modal {
@@ -420,32 +985,52 @@ window.onload = function() {
 .modal-content {
   background-color: white;
   padding: 20px;
-  border-radius: 8px;
-  max-width: 800px;
+  border-radius: 22px;
+  height: 350px;
   width: 100%;
   left: 21%;
   top: 72px;
   position: relative;
+  justify-content:center;
+}
+/* Base Styles */
+.modal-content2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 22px;
+  height: 650px;
+  width: 350px;
+  left: 35%;
+  top: 5px;
+  justify-content:center;
+  display: inline-block;
+  position: relative;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-  .modal-content {
-    max-width: 85%;   /* Limit the width to 90% of the screen */
-    left: 5%;         /* Adjust horizontal positioning for mobile */
-    top: 20px;        /* Adjust the vertical positioning for better spacing */
-    padding: 15px;    /* Reduce padding for smaller screens */
-  }
-}
+
 
 /* Extra Mobile Adjustments for Smaller Screens (e.g., phones in portrait mode) */
 @media (max-width: 480px) {
   .modal-content {
     left: 0;           /* Align the modal content to the left edge */
-    top: 10px;         /* Reduce top spacing for smaller screens */
+    top: 1px;         /* Reduce top spacing for smaller screens */
     padding: 10px;     /* Further reduce padding */
     max-width: 95%;   /* Set width to full screen */
   }
+
+  .modal-content2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 22px;
+  height: 650px;
+  width: 350px;
+  left: 0%;
+  top: 5px;
+  justify-content:center;
+  display: inline-block;
+  position: relative;
+}
+
 }
 
 /* Close Button */
@@ -505,24 +1090,26 @@ window.onload = function() {
   display: flex;
   gap: 10px;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .bloc-image img {
-  width: 200px;
-  height: 150px;
+  width: 50vh;
+  height: 50vh;
 }
 
 .bloc-description {
   flex-grow: 1;
   font-size: 16px;
-  color: #333;
+  color: #333333;
 }
 
 /* Social Media Icons */
 .social-media {
   display: flex;
-  gap: 10px;
+  gap: 30px;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .social-icon img {
@@ -534,13 +1121,14 @@ window.onload = function() {
 /* Contact Info */
 .contact-info {
   margin-top: 20px;
+  justify-content: center;
 }
 
 .contact-icon {
   display: inline-block;
   margin-right: 20px;
   font-size: 16px;
-  color: #333;
+  color: #08790e;
 }
 
 .contact-icon img {
@@ -622,18 +1210,7 @@ body {
       z-index: 10001;
     }
 
-    /* Logo Navigation */
-    #logo-nav {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      width: 95%;
-      z-index: 10001;
-    }
-
+  
     .nav-btn {
       color: #383838;
       border: none;
@@ -644,33 +1221,10 @@ body {
     }
 
 
-
-
-
-    #logo-container {
-      display: flex;
-      overflow-x: auto;
-      overflow-x: scroll;  /* Enables horizontal scrolling */
-      scroll-behavior: smooth;
-      flex-wrap: nowrap;
-      gap: 3px;
-      padding: 5px;
-      border-radius: 50px;
-      white-space: nowrap;
-      background-color: rgba(255, 255, 255, 0.692);
-      cursor: grab;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      border: solid 2px rgb(255, 255, 255);
-      overflow-y: hidden;  /* Hides vertical scrollbar */
-    }
-    #logo-container::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar in webkit browsers (Chrome, Safari) */
-}
-
     .logo img {
-      height: 40px;
-      width: auto;
-    }
+    height: 40px;
+    width: auto;
+  }
 
     /* Column and box styling inside widget */
     .column {
@@ -699,8 +1253,55 @@ body {
 }
 
   </style>
+
+<script>
+  // Function to create card HTML
+  function createCard(data) {
+    const card = document.createElement("div");
+    card.className = "card";
+    
+    card.innerHTML = `
+      <video class="background-video" autoplay loop muted playsinline>
+        <source src="${data.videoUrl}" type="video/mp4">
+      </video>
+      
+      <div class="overlay">
+        <div class="card-header">
+          <span class="type">${data.type}</span>
+          <span class="timestamp">Updated ${data.updated}</span>
+          <span class="author">Posted by: ${data.author}</span>
+        </div>
+        
+        <div class="card-content">
+          <p class="caption">"${data.caption}"</p>
+        </div>
+
+        <div class="card-footer">
+          <div class="social-links">
+            ${data.socials.map(social => `<a href="#" class="social-icon">${social}</a>`).join("")}
+          </div>
+          <div class="contact">
+            <span>Call: ${data.call}</span>
+          </div>
+          <div class="rating">
+            <span>Rating: ${data.rating}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return card;
+  }
+
+  // Add markers with popups
+  sampleData.forEach(data => {
+    const marker = L.marker([data.latitude, data.longitude]).addTo(map);
+    marker.bindPopup(createCard(data).outerHTML);
+  });
+</script>
 </body>
 </html>
+
 
 
 
