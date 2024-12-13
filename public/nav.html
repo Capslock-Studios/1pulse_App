@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollable Nav with Round Images</title>
+
+</head>
+<body>
+    <style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+
+  .nav {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 50px;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: #f0f0f0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  overflow: hidden; /* Hide scrollbar */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .nav {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    justify-content: start;
+    height: 50px;
+    padding: 5px;
+    border-radius: 50px;
+    background-color: #f0f0f0;
+    position: fixed; /* Fixed at the top of the screen */
+    width: 50%; /* Default 50% width for desktop */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  .nav-item {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover; /* Make sure the images are cropped properly */
+  }
+  
+  .nav::-webkit-scrollbar {
+    height: 1px; /* Height of the scrollbar */
+    width: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .nav::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+  
+  .nav::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+
+
+/* Media Query for mobile devices */
+@media screen and (max-width: 768px) {
+  .nav {
+    width: 90%; /* Set nav to 100% width on mobile */
+  }
+}
+
+
+  </style>
+  <div class="nav">
+    <img src="images/Africa City.png" alt="Logo 1" class="nav-item">
+    <img src="images/bonizluu-fav.png" alt="Logo 2" class="nav-item">
+    <img src="images/errand camel logo.png" alt="Logo 3" class="nav-item">
+    <img src="images/Tae-Trax-Logo.png" alt="Logo 4" class="nav-item">
+    <img src="images/pulse logo.png" alt="Logo 5" class="nav-item">
+    <img src="images/cpf.png" alt="Logo 6" class="nav-item">
+    <img src="images/errand camel logo.png" alt="Logo 7" class="nav-item">
+    <img src="images/errand camel logo.png" alt="Logo 8" class="nav-item">
+    <img src="images/gjno logo.png" alt="Logo 9" class="nav-item">
+  </div>
+
+</body>
+</html>
