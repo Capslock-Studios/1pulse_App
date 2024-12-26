@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Home -->
+  <url>
+    <loc>http://1pulse-online-beta.netlify.app/</loc>
+    <lastmod>2024-12-27</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- About Us -->
+  <url>
+    <loc>https://1pulse.online/helpdesk-progress</loc>
+    <lastmod>2024-12-27</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Partners -->
+  <url> <loc>https:https://1pulse.online/communityhub-progress</loc>
+    <lastmod>2024-12-27</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Tech Innovation -->
+  <url>
+    <loc>https://1pulse.online/school-progress</loc>
+    <lastmod>2024-12-27</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+   
+  <!-- Map Section -->
+  <url>
+    <loc>https://1pulse.online/map</loc>
+    <lastmod>2024-12-27</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+</urlset>
