@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<style>
+/* Basic Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* Navbar Styles */
+#navbar {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 25px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#navbar button {
+    background-color: #444;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#navbar button:hover {
+    background-color: #555;
+}
+
+/* Filter Div Styles */
+#filters {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+#filters select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#filters img {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.modal-content h3 {
+    margin-top: 10px;
+}
+
+.modal-content p {
+    margin-top: 10px;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
+<!-- Navbar -->
+<nav id="navbar">
+    <!-- Nav items will be dynamically added here -->
+</nav>
+
+<!-- Filter Div -->
+<div id="filters">
+    <!-- Filter options will be dynamically added here -->
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="modalTitle"></h3>
+        <img id="modalImage" src="" alt="Selected Item Image">
+        <p id="modalDescription"></p>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Data for National and Provincial options (example data)
+    const navItems = ['National', 'Provincial', 'Municipal', 'Wardal', 'Sectional', 'Street'];
+    const itemsData = {
+        'National': ['nation1.jpg', 'nation2.jpg', 'nation3.jpg', 'nation4.jpg', 'nation5.jpg'],
+        'Provincial': ['provincial1.jpg', 'provincial2.jpg', 'provincial3.jpg', 'provincial4.jpg', 'provincial5.jpg']
+    };
+
+    const descriptions = {
+        'nation1': 'Description for Nation 1.',
+        'nation2': 'Description for Nation 2.',
+        'nation3': 'Description for Nation 3.',
+        'nation4': 'Description for Nation 4.',
+        'nation5': 'Description for Nation 5.',
+        'provincial1': 'Description for Provincial 1.',
+        'provincial2': 'Description for Provincial 2.',
+        'provincial3': 'Description for Provincial 3.',
+        'provincial4': 'Description for Provincial 4.',
+        'provincial5': 'Description for Provincial 5.'
+    };
+
+    const navbar = document.getElementById('navbar');
+    const filtersDiv = document.getElementById('filters');
+    const modal = document.getElementById('myModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImage = document.getElementById('modalImage');
+    const modalDescription = document.getElementById('modalDescription');
+    const closeModal = document.querySelector('.close');
+
+    // Function to open modal
+    function openModal(itemName, category) {
+        modalTitle.textContent = `You have selected ${category} ${itemName}`;
+        modalImage.src = `images/${category.toLowerCase() + itemName}.jpg`;
+        modalDescription.textContent = descriptions[category.toLowerCase() + itemName];
+        modal.style.display = "flex";
+    }
+
+    // Event listener to close modal
+    closeModal.addEventListener('click', function () {
+        modal.style.display = "none";
+    });
+
+    // Create Nav items dynamically
+    navItems.forEach(item => {
+        const button = document.createElement('button');
+        button.textContent = item;
+        button.addEventListener('click', () => {
+            // Example: Open modal for National when clicked
+            openModal('3', item); // Example item (e.g., '3' for nation3)
+        });
+        navbar.appendChild(button);
+    });
+
+    // Create filter options dynamically for National and Provincial
+    for (let category in itemsData) {
+        const select = document.createElement('select');
+        select.id = `${category.toLowerCase()}Select`;
+        const imgContainer = document.createElement('div');
+        imgContainer.id = `${category.toLowerCase()}ImgContainer`;
+
+        itemsData[category].forEach((img, index) => {
+            const option = document.createElement('option');
+            option.value = index + 1;
+            option.textContent = `${category} ${index + 1}`;
+
+            const imgElement = document.createElement('img');
+            imgElement.src = `images/${img}`;
+            imgElement.alt = `${category} Image ${index + 1}`;
+            imgElement.addEventListener('click', function () {
+                openModal(`${index + 1}`, category);
+            });
+
+            imgContainer.appendChild(imgElement);
+            select.appendChild(option);
+        });
+
+        filtersDiv.appendChild(select);
+        filtersDiv.appendChild(imgContainer);
+    }
+});
+
+
+</script>
+</body>
+</html>
