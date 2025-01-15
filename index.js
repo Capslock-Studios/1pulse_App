@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 });
 
 // Serve the map-view/index.html file
-app.get('/map-view', (req, res) => {
+app.get('/Map-view', (req, res) => {
   res.sendFile(path.join(__dirname, 'map-view', 'index.html'));
 });
 
