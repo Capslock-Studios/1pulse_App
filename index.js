@@ -47,11 +47,17 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Serve the map-view/index.html file
+app.get('/map-view', (req, res) => {
+  res.sendFile(path.join(__dirname, 'map-view', 'index.html'));
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
 
 
 // Endpoint to get all incidents from the database
