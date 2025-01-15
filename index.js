@@ -34,10 +34,25 @@ connection.once('open', () => {
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve the index.html file when accessing the root
+const express = require('express');
+const path = require('path');
+
+const app = express();
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve the index.html file for the root path
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 
 // Endpoint to get all incidents from the database
 app.get('/get-incidents', async (req, res) => {
