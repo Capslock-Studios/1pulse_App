@@ -4,11 +4,11 @@ const path = require('path');
 const app = express();
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'Map-view')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve the index.html file for the root path
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Map-view', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Serve the map-view/index.html file
