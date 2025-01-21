@@ -16,6 +16,11 @@ app.get('/Map-view', (req, res) => {
   res.sendFile(path.join(__dirname, 'Map-view', 'index.html'));
 });
 
+// Serve the faq.html file for the root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'faq.html'));
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
