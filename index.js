@@ -17,8 +17,8 @@ app.get('/faq', (req, res) => {
 });
 
 // Serve the index.html file in the Map-view folder for the /Map-view path
-app.get('/Map-view', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'Map-view', 'index.html'));
+app.get('Map-view', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Map-view', 'index.html'));
 });
 
 // Serve the dashboard index.html file for the /dashboard path
