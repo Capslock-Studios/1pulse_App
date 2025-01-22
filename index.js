@@ -11,14 +11,19 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Serve the map-view/index.html file
-app.get('/Map-view', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Map-view', 'index.html'));
+// Serve the faq.html file for the /faq path
+app.get('/faq', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'faq.html'));
 });
 
-// Serve the faq.html file for the root path
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'faq.html'));
+// Serve the index.html file in the Map-view folder for the /Map-view path
+app.get('/Map-view', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'Map-view', 'index.html'));
+});
+
+// Serve the dashboard index.html file for the /dashboard path
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard', 'index.html'));
 });
 
 // Start the server
