@@ -66,23 +66,65 @@
         .hero-section {
             position: relative;
             width: 100%;
-            height: 300px;
+            height: 400px; /* Adjusted height for post cards */
             overflow: hidden;
         }
 
         .carousel {
             display: flex;
             transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
         }
 
         .carousel-item {
-            min-width: 100%;
+            min-width: 300px; /* Fixed width for post cards */
+            margin: 0 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
             box-sizing: border-box;
         }
 
-        .carousel-description {
-            text-align: center;
+        .carousel-item img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .carousel-item h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .carousel-item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .carousel-controls button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
             padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .carousel-controls button:hover {
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .video-section, .faq-section {
@@ -116,16 +158,27 @@
         </header>
         <div class="hero-section">
             <div class="carousel">
-                <!-- Carousel images -->
-                <div class="carousel-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2kcEq-EhjL9ZMvBnQcOCIfBRH3M1pdEeWxA&usqp=CAU" alt="Image 1"></div>
-                <div class="carousel-item"><img src="https://images.pexels.com/photos/1188083/pexels-photo-1188083.png" alt="Image 2"></div>
-                <div class="carousel-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2kcEq-EhjL9ZMvBnQcOCIfBRH3M1pdEeWxA&usqp=CAU" alt="Image 3"></div>
-                <div class="carousel-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2kcEq-EhjL9ZMvBnQcOCIfBRH3M1pdEeWxA&usqp=CAU" alt="Image 4"></div>
-                <div class="carousel-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2kcEq-EhjL9ZMvBnQcOCIfBRH3M1pdEeWxA&usqp=CAU" alt="Image 5"></div>
-                <!-- Add more images as needed -->
+                <!-- Post Cards -->
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/300x150" alt="Post Image">
+                    <h3>User Name</h3>
+                    <p>This is a sample post. It can contain text, images, or other content.</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/300x150" alt="Post Image">
+                    <h3>User Name</h3>
+                    <p>Another sample post with different content.</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/300x150" alt="Post Image">
+                    <h3>User Name</h3>
+                    <p>Yet another post for demonstration purposes.</p>
+                </div>
+                <!-- Add more post cards as needed -->
             </div>
-            <div class="carousel-description">
-                <p>Description for the current image</p>
+            <div class="carousel-controls">
+                <button id="prev-button">&#10094;</button>
+                <button id="next-button">&#10095;</button>
             </div>
         </div>
         <div class="video-section">
@@ -167,15 +220,28 @@
 
             // Carousel functionality
             const carousel = document.querySelector('.carousel');
-            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
             let currentIndex = 0;
 
-            function showNextImage() {
-                currentIndex = (currentIndex + 1) % carouselItems.length;
-                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            function updateCarousel() {
+                const offset = -currentIndex * 320; // 300px width + 20px margin
+                carousel.style.transform = `translateX(${offset}px)`;
             }
 
-            setInterval(showNextImage, 3000); // Change image every 3 seconds
+            prevButton.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            nextButton.addEventListener('click', function() {
+                if (currentIndex < carousel.children.length - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
         });
     </script>
 </body>
