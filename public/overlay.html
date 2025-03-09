@@ -138,5 +138,34 @@ nav ul {
     </div>
     <button id="show-overlay">Show Overlay</button>
     <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('overlay-main');
+    const showOverlayButton = document.getElementById('show-overlay');
+    let startX = 0;
+    let isDragging = false;
+
+    overlay.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+
+    overlay.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        const currentX = e.touches[0].clientX;
+        const diff = startX - currentX;
+        if (diff > 50) { // Swipe left to hide
+            overlay.style.transform = 'translateX(-100%)';
+            showOverlayButton.style.display = 'block';
+            isDragging = false;
+        }
+    });
+
+    showOverlayButton.addEventListener('click', function() {
+        overlay.style.transform = 'translateX(0)';
+        showOverlayButton.style.display = 'none';
+    });
+});
+</script>
 </body>
 </html>
