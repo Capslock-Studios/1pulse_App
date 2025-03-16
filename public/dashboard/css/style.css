@@ -275,3 +275,44 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+<style>
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 24px;
+    }
+
+    .star {
+        color: #FFD700; /* Gold color */
+        transition: transform 0.2s ease-in-out;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .star.half {
+        position: relative;
+    }
+
+    .star:hover {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    .half::before {
+        content: '\2605'; /* Unicode full star */
+        position: absolute;
+        left: 0;
+        width: 50%;
+        overflow: hidden;
+        color: #FFD700;
+    }
+</style>
+
+<div class="rating">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star half" data-value="4.5">&#9733;</span> <!-- Half-star -->
+    <span class="star" data-value="5">&#9733;</span>
+</div>
